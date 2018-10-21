@@ -9,14 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
-import android.widget.Toast;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class LoginFragment extends Fragment {
 
-    @BindView(R.id.loginButton)
     Button loginButton;
 
 
@@ -29,16 +26,11 @@ public class LoginFragment extends Fragment {
 
         loginButton = view.findViewById(R.id.loginButton);
 
-
-
-
-        loginButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Going", Toast.LENGTH_LONG).show();
-                ((MainActivity)getActivity()).setViewPager(1);
-            }
+        loginButton.setOnClickListener(v -> {
+            ((MainActivity)getActivity()).setViewPager(1);
         });
+
+
 
         return view;
     }

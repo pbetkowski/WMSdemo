@@ -5,9 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.pbetkows.wms.adapters.PageAdapter;
-import com.example.pbetkows.wms.goodsReceipt.GoodsReceiptMain;
-
-import butterknife.ButterKnife;
+import com.example.pbetkows.wms.tests.SampleList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private void setupPager(ViewPager viewPager) {
         PageAdapter adapter = new PageAdapter(getSupportFragmentManager());
         adapter.addFragment(new LoginFragment(), "Login");
-        adapter.addFragment(new GoodsReceiptMain(), "GoodsReceiptMenu");
+        adapter.addFragment(new MainMenuFragment(), "MainMenu");
+        adapter.addFragment(new SampleList(), "Sample");
         viewPager.setAdapter(adapter);
     }
 

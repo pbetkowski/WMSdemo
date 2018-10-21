@@ -1,4 +1,4 @@
-package com.example.pbetkows.wms.goodsReceipt;
+package com.example.pbetkows.wms;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -7,16 +7,21 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
-import com.example.pbetkows.wms.R;
+public class MainMenuFragment extends Fragment {
 
-public class GoodsReceiptMain extends Fragment {
+    Button sampleButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.goods_receipt_main_menu_fragment, container, false);
+        View view = inflater.inflate(R.layout.main_menu_fragment, container, false);
+        sampleButton = view.findViewById(R.id.sample);
 
+        sampleButton.setOnClickListener(v -> {
+            ((MainActivity)getActivity()).setViewPager(2);
+        });
         return view;
     }
 }
