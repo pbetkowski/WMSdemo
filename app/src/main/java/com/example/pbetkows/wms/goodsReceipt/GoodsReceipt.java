@@ -1,4 +1,4 @@
-package com.example.pbetkows.wms.tests;
+package com.example.pbetkows.wms.goodsReceipt;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,13 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.pbetkows.wms.MainActivity;
 import com.example.pbetkows.wms.R;
-import com.example.pbetkows.wms.model.Sample;
-import com.example.pbetkows.wms.services.SampleService;
+import com.example.pbetkows.wms.model.GoodsReceiptN;
+import com.example.pbetkows.wms.services.GoodsReceiptNService;
 import com.example.pbetkows.wms.services.RXService;
+
 import com.example.pbetkows.wms.utils.MessageBox;
 
 import java.util.ArrayList;
@@ -28,46 +30,58 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class SampleList extends Fragment implements RXService {
+public class GoodsReceipt extends Fragment implements RXService {
 
     private List<String> result;
     private ListView listView;
-    private SampleService sampleService;
+    private GoodsReceiptNService goodsReceiptNService;
     private FloatingActionButton returnButton;
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sample_list, container, false);
-
+        View view = inflater.inflate(R.layout.goods_receipt_n, container, false);
+        returnButton = view.findViewById(R.id.returnButton);
         listView = view.findViewById(R.id.list);
         result = new ArrayList<>();
-        returnButton = view.findViewById(R.id.returnButton1);
         initializeRXToList();
-        getData();
-
+       // getData();
 
         returnButton.setOnClickListener(v -> {
             ((MainActivity)getActivity()).setViewPager(1);
         });
 
+
+
         return view;
     }
 
+    @Override
+    public void initializeRXToList() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://192.168.0.12:8080/api/pos/")
+                .addConverterFactory(JacksonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        goodsReceiptNService = retrofit.create(GoodsReceiptNService.class);
+        Log.d("TAG", "TEST");
+    }
+
+
     private void getData() {
-        sampleService.getAll()
+        goodsReceiptNService.getPositions()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         v -> {
-                            //Log.d("TAG", v.toString());
-                            for (Sample w : v) {
-                                result.add(w.getTitle());
+                            Log.d("TAG", v.toString());
+                            for (GoodsReceiptN w : v) {
+                                result.add(w.getIndeks());
                             }
                         },
                         err -> {
                             MessageBox.Show(getContext() ,err.getMessage());
+                            Log.d("TAG", err.getMessage());
                         },
 
                         () -> {
@@ -80,17 +94,4 @@ public class SampleList extends Fragment implements RXService {
                         }
                 );
     }
-
-    @Override
-    public void initializeRXToList() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com/posts/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        sampleService = retrofit.create(SampleService.class);
-        Log.d("TAG", "TEST");
-    }
 }
-
-

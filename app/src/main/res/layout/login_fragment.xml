@@ -9,10 +9,17 @@
     <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
         android:layout_marginBottom="10dip"/>
 
+    <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:text="Password:" android:padding="5dip"/>
+
+    <EditText android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginBottom="10dip"/>
+
     <Button
         android:id="@+id/loginButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Login"/>
+
 
 </LinearLayout>

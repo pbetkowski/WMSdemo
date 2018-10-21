@@ -10,7 +10,8 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 
-import butterknife.BindView;
+import java.util.Objects;
+
 
 public class LoginFragment extends Fragment {
 
@@ -27,7 +28,7 @@ public class LoginFragment extends Fragment {
         loginButton = view.findViewById(R.id.loginButton);
 
         loginButton.setOnClickListener(v -> {
-            ((MainActivity)getActivity()).setViewPager(1);
+            ((MainActivity)Objects.requireNonNull(getActivity())).setViewPager(1);
         });
 
 
