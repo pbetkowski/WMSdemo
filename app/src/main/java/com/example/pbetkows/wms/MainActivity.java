@@ -8,6 +8,7 @@ import com.example.pbetkows.wms.adapters.PageAdapter;
 import com.example.pbetkows.wms.goodsReceipt.GoodsReceipt;
 import com.example.pbetkows.wms.goodsReceipt.GoodsReceiptMainMenu;
 import com.example.pbetkows.wms.tests.SampleList;
+import com.example.pbetkows.wms.utils.DataWedgeFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         pageAdapter = new PageAdapter(getSupportFragmentManager());
 
-        viewPager = (ViewPager) findViewById(R.id.container);
+        viewPager = findViewById(R.id.container);
 
         setupPager(viewPager);
     }
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new GoodsReceiptMainMenu(), "GoodsReceiptMenu");
         adapter.addFragment(new SampleList(), "Sample");
         adapter.addFragment(new GoodsReceipt(), "GoodsReceiptN");
+        adapter.addFragment(new DataWedgeFragment(), "Data Wedge");
         viewPager.setAdapter(adapter);
     }
 

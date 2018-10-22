@@ -5,13 +5,19 @@
 
     <Button
         android:id="@+id/GoodsReceiptButton"
-        android:text="GoodsReceipt"
+        android:text="Goods Receipt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/sample"
         android:text="Inventory stock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/dataWedgeButton"
+        android:text="data wedge"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
