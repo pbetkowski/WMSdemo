@@ -1,5 +1,6 @@
 package com.example.pbetkows.wms.utils;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -35,13 +36,13 @@ public class DataWedgeFragment extends Fragment {
         scanButton.setOnClickListener(v -> {
             scannerView = new ZXingScannerView(getActivity());
             getActivity().setContentView(scannerView);
-            scannerView.setResultHandler(new ZXingScannerView.ResultHandler() {
-                @Override
-                public void handleResult(Result result) {
-                    Toast.makeText(getActivity(), "Contents = " + result.getText() + ", Format = " + result.getBarcodeFormat().toString(), Toast.LENGTH_SHORT).show();
-                }
+            scannerView.setResultHandler(result -> {
+               MessageBox.Show(getContext(), result.getText());
+               scannerView.stopCamera();
             });
             scannerView.startCamera();
+
+
         });
         return view;
     }

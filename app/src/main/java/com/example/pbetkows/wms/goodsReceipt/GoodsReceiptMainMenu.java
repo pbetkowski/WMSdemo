@@ -28,9 +28,6 @@ public class GoodsReceiptMainMenu extends Fragment {
         createButton = view.findViewById(R.id.createButton);
         createdButton = view.findViewById(R.id.createdButton);
 
-        createButton.setOnClickListener(v -> {
-            ((MainActivity)Objects.requireNonNull(getActivity())).setViewPager(4);
-        });
 
         return view;
     }

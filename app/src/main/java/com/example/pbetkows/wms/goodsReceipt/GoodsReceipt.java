@@ -47,11 +47,6 @@ public class GoodsReceipt extends Fragment implements RXService {
         initializeRXToList();
        // getData();
 
-        returnButton.setOnClickListener(v -> {
-            ((MainActivity)getActivity()).setViewPager(1);
-        });
-
-
 
         return view;
     }
@@ -68,30 +63,30 @@ public class GoodsReceipt extends Fragment implements RXService {
     }
 
 
-    private void getData() {
-        goodsReceiptNService.getPositions()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(
-                        v -> {
-                            Log.d("TAG", v.toString());
-                            for (GoodsReceiptN w : v) {
-                                result.add(w.getIndeks());
-                            }
-                        },
-                        err -> {
-                            MessageBox.Show(getContext() ,err.getMessage());
-                            Log.d("TAG", err.getMessage());
-                        },
-
-                        () -> {
-                            Log.d("TAG", "Finish getAll");
-                            ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, result);
-                            listView.setAdapter(adapter);
-                        },
-                        d -> {
-                            Log.d("TAG", "Finished");
-                        }
-                );
-    }
+//    private void getData() {
+//        goodsReceiptNService.getPositions()
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeOn(Schedulers.io())
+//                .subscribe(
+//                        v -> {
+//                            Log.d("TAG", v.toString());
+//                            for (GoodsReceiptN w : v) {
+//                                result.add(w.getIndeks());
+//                            }
+//                        },
+//                        err -> {
+//                            MessageBox.Show(getContext() ,err.getMessage());
+//                            Log.d("TAG", err.getMessage());
+//                        },
+//
+//                        () -> {
+//                            Log.d("TAG", "Finish getAll");
+//                            ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, result);
+//                            listView.setAdapter(adapter);
+//                        },
+//                        d -> {
+//                            Log.d("TAG", "Finished");
+//                        }
+//                );
+//    }
 }

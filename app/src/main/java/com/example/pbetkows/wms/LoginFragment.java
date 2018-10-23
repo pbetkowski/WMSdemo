@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 
-import java.util.Objects;
+import com.example.pbetkows.wms.utils.MessageBox;
 
 
 public class LoginFragment extends Fragment {
@@ -25,12 +25,13 @@ public class LoginFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.login_fragment, container, false);
 
+
         loginButton = view.findViewById(R.id.loginButton);
 
-        loginButton.setOnClickListener(v -> {
-            ((MainActivity)Objects.requireNonNull(getActivity())).setViewPager(1);
-        });
 
+        loginButton.setOnClickListener(v -> {
+            getFragmentManager().beginTransaction().replace(R.id.loginPanel, new MainMenuFragment()).commit();
+        });
 
 
         return view;

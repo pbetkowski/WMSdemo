@@ -48,10 +48,6 @@ public class SampleList extends Fragment implements RXService {
         getData();
 
 
-        returnButton.setOnClickListener(v -> {
-            ((MainActivity)getActivity()).setViewPager(1);
-        });
-
         return view;
     }
 

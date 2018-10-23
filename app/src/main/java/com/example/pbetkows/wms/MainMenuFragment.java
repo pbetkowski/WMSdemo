@@ -1,6 +1,6 @@
 package com.example.pbetkows.wms;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,8 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.pbetkows.wms.tests.SampleList;
 
-import java.util.Objects;
 
 public class MainMenuFragment extends Fragment {
 
@@ -21,6 +21,8 @@ public class MainMenuFragment extends Fragment {
 
     Button dataWedgeButton;
 
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -29,16 +31,9 @@ public class MainMenuFragment extends Fragment {
         goodsReceiptButton = view.findViewById(R.id.GoodsReceiptButton);
         dataWedgeButton = view.findViewById(R.id.dataWedgeButton);
 
+
         sampleButton.setOnClickListener(v -> {
-            ((MainActivity)Objects.requireNonNull(getActivity())).setViewPager(3);
-        });
-
-        goodsReceiptButton.setOnClickListener(v -> {
-            ((MainActivity)Objects.requireNonNull(getActivity())).setViewPager(2);
-        });
-
-        dataWedgeButton.setOnClickListener(v -> {
-            ((MainActivity)Objects.requireNonNull(getActivity())).setViewPager(5);
+            getFragmentManager().beginTransaction().replace(R.id.main_menu_panel, new SampleList()).commit();
         });
 
 
