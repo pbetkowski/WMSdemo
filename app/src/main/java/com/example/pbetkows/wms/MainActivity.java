@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
         //viewPager = findViewById(R.id.container);
 
-       // setupPager(viewPager);
+        // setupPager(viewPager);
     }
 // prepared pagerView
 //    private void setupPager(ViewPager viewPager) {

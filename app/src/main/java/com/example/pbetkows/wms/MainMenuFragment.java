@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.pbetkows.wms.goodsReceipt.GoodsReceiptMainMenu;
 import com.example.pbetkows.wms.tests.SampleList;
+import com.example.pbetkows.wms.utils.DataWedgeFragment;
 
 
 public class MainMenuFragment extends Fragment {
@@ -33,16 +35,21 @@ public class MainMenuFragment extends Fragment {
         dataWedgeButton = view.findViewById(R.id.dataWedgeButton);
 
 
-        sampleButton.setOnClickListener(v -> {
-            getFragmentManager().beginTransaction().
-                    replace(R.id.container, new SampleList())
-                    .addToBackStack(null)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .commit();
-        });
+        sampleButton.setOnClickListener(v -> navigate(new SampleList()));
+        goodsReceiptButton.setOnClickListener(v -> navigate(new GoodsReceiptMainMenu()));
+        dataWedgeButton.setOnClickListener(v -> navigate(new DataWedgeFragment()));
 
 
         return view;
+    }
+
+    private void navigate(Fragment fragment) {
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
     }
 
     @Override

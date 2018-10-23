@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.example.pbetkows.wms.R;
 import java.util.Objects;
 
 public class GoodsReceiptMainMenu extends Fragment {
+
 
     Button createButton;
     Button createdButton;
@@ -28,7 +30,18 @@ public class GoodsReceiptMainMenu extends Fragment {
         createButton = view.findViewById(R.id.createButton);
         createdButton = view.findViewById(R.id.createdButton);
 
+        createButton.setOnClickListener(v -> navigate(new GoodsReceipt()));
+
 
         return view;
+    }
+
+    private void navigate(Fragment fragment) {
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
     }
 }

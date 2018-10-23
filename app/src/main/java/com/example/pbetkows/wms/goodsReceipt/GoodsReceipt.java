@@ -45,7 +45,7 @@ public class GoodsReceipt extends Fragment implements RXService {
         listView = view.findViewById(R.id.list);
         result = new ArrayList<>();
         initializeRXToList();
-       // getData();
+        // getData();
 
 
         return view;

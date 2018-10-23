@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 
+import com.example.pbetkows.wms.utils.Navigator;
+
 
 public class LoginFragment extends Fragment {
 
@@ -23,20 +25,23 @@ public class LoginFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.login_fragment, container, false);
-
-
         loginButton = view.findViewById(R.id.loginButton);
 
 
         loginButton.setOnClickListener(v -> {
+            navigate();
+        });
 
-            getFragmentManager().beginTransaction().
-                    replace(R.id.container, new MainMenuFragment())
-                    .addToBackStack(null)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .commit();
-                });
+
 
         return view;
+    }
+
+    private void navigate() {
+        getFragmentManager().beginTransaction()
+                .replace(R.id.container, new MainMenuFragment())
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
     }
 }
