@@ -1,8 +1,5 @@
 package com.example.pbetkows.wms;
 
-import android.app.Activity;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,13 +14,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        Fragment fragment = new LoginFragment();
-
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
-        transaction.replace(R.id.contentFragment, fragment);
-        transaction.commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new LoginFragment())
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
 
         //pageAdapter = new PageAdapter(getSupportFragmentManager());
 

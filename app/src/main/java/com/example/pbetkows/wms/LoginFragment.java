@@ -4,13 +4,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.Button;
-
-import com.example.pbetkows.wms.utils.MessageBox;
 
 
 public class LoginFragment extends Fragment {
@@ -30,9 +29,13 @@ public class LoginFragment extends Fragment {
 
 
         loginButton.setOnClickListener(v -> {
-            getFragmentManager().beginTransaction().replace(R.id.loginPanel, new MainMenuFragment()).commit();
-        });
 
+            getFragmentManager().beginTransaction().
+                    replace(R.id.container, new MainMenuFragment())
+                    .addToBackStack(null)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit();
+                });
 
         return view;
     }

@@ -57,7 +57,8 @@ public class SampleList extends Fragment implements RXService {
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         v -> {
-                            //Log.d("TAG", v.toString());
+                            MessageBox.Show(getContext(), "Connecting to API...");
+
                             for (Sample w : v) {
                                 result.add(w.getTitle());
                             }
