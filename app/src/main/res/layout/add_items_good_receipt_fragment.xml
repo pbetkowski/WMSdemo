@@ -4,15 +4,11 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <fragment
+        android:name="com.example.pbetkows.wms.FragmentHeaders.GoodsReceiptHeader"
+        android:id="@+id/fooFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="Goods Receipt"
-        android:gravity="center"
-        android:textColor="#86AD33"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="match_parent"
@@ -58,10 +54,27 @@
     </RelativeLayout>
 
 
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/itemList">
-    </ListView>
+   <FrameLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <ListView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:id="@+id/itemList">
+       </ListView>
+
+       <android.support.design.widget.FloatingActionButton
+           android:id="@+id/floating_action_button_fab_with_listview"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="bottom |end"
+           app:backgroundTint="#4c4c4c"
+           android:clickable="true"
+           android:src="@drawable/ic_add_circle_black_24dp"
+           app:elevation="4dp" />
+   </FrameLayout>
+
+
 
 </LinearLayout>
