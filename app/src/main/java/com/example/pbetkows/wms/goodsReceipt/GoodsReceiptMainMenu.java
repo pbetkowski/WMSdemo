@@ -21,10 +21,10 @@ import butterknife.ButterKnife;
 public class GoodsReceiptMainMenu extends Fragment {
 
 
-    @BindView(R.id.createButton)
-    Button createButton ;
-    @BindView(R.id.createdButton)
-    Button createdButton;
+    @BindView(R.id.createButton) Button createButton ;
+    @BindView(R.id.createdButton) Button createdButton;
+
+
 
     @Nullable
     @Override

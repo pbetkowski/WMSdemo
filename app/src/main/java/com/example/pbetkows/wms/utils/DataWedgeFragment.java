@@ -15,12 +15,15 @@ import android.widget.Toast;
 import com.example.pbetkows.wms.R;
 import com.google.zxing.Result;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
 public class DataWedgeFragment extends Fragment {
 
-    Button scanButton;
-    EditText resultText;
+    @BindView(R.id.scannerButton) Button scanButton;
+    @BindView(R.id.resultEditText) EditText resultText;
+
     String barcode;
     private ZXingScannerView scannerView;
 
@@ -30,8 +33,7 @@ public class DataWedgeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.data_wedge_fragment, container, false);
 
-        resultText = view.findViewById(R.id.resultEditText);
-        scanButton = view.findViewById(R.id.scannerButton);
+        ButterKnife.bind(this, view);
 
         scanButton.setOnClickListener(v -> {
             scannerView = new ZXingScannerView(getActivity());

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,9 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.pbetkows.wms.LoginFragment;
 import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.apiKeys.ApiKeys;
-import com.example.pbetkows.wms.model.Sample;
 import com.example.pbetkows.wms.model.Wiki;
 import com.example.pbetkows.wms.services.RXService;
 import com.example.pbetkows.wms.services.SampleService;
@@ -37,14 +38,24 @@ public class ChooseClientFragment extends Fragment implements RXService {
     @BindView(R.id.client_list_goodsReceipt)
     ListView listView;
 
-    private List<String> result;
+    private List<String> supplierList;
     SampleService sampleService;
+
+    AddItemsToListFragment chooseClientFragment = new AddItemsToListFragment();
+    Bundle args = new Bundle();
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chose_client_fragment_goods_receipt, container, false);
         ButterKnife.bind(this, view);
+
+        listView.setOnItemClickListener((a, b, c, d) -> {
+            args.putString("key", supplierList.get(c));
+            chooseClientFragment.setArguments(args);
+            navigate(chooseClientFragment);
+        });
 
         initializeRXToList();
         getClients();
@@ -64,15 +75,16 @@ public class ChooseClientFragment extends Fragment implements RXService {
     }
 
     private void getClients() {
-        result = new ArrayList<>();
+        supplierList = new ArrayList<>();
         sampleService.getAll(ApiKeys.API_KEY, ApiKeys.PROJECT_ID)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         val -> {
                             MessageBox.Show(getContext(), "Connecting to API...");
+
                             for (Wiki v : val) {
-                                result.add(v.getSlug());
+                                supplierList.add(v.getSlug());
                             }
                         },
                         error -> {
@@ -80,12 +92,21 @@ public class ChooseClientFragment extends Fragment implements RXService {
                         },
                         () -> {
                             ArrayAdapter adapter = new ArrayAdapter(getContext(),
-                                    android.R.layout.simple_list_item_1, result);
+                                    android.R.layout.simple_list_item_1, supplierList);
                             listView.setAdapter(adapter);
                         },
                         d -> {
                             Log.d(TAG, "subscribe getAll");
                         }
                 );
+    }
+
+    private void navigate(Fragment fragment) {
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
     }
 }
