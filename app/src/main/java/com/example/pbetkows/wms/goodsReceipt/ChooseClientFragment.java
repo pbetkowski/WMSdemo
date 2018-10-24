@@ -82,7 +82,6 @@ public class ChooseClientFragment extends Fragment implements RXService {
                 .subscribe(
                         val -> {
                             MessageBox.Show(getContext(), "Connecting to API...");
-
                             for (Wiki v : val) {
                                 supplierList.add(v.getSlug());
                             }

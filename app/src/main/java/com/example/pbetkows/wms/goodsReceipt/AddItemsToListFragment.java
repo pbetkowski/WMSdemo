@@ -12,14 +12,17 @@ import android.widget.Toast;
 
 import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.utils.MessageBox;
+import com.example.pbetkows.wms.utils.StaticGenerators;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AddItemsToListFragment extends Fragment {
 
-    @BindView(R.id.clientTextView)
-    TextView clientTextView;
+    @BindView(R.id.clientTextView) TextView clientTextView;
+    @BindView(R.id.documentNuberTextView) TextView documentNumberTextView;
+    @BindView(R.id.docDateTextView) TextView docDateTextView;
+
 
     @Nullable
     @Override
@@ -29,6 +32,7 @@ public class AddItemsToListFragment extends Fragment {
         ButterKnife.bind(this, view);
         String value = getArguments().getString("key");
         clientTextView.setText(value);
+        docDateTextView.setText(StaticGenerators.getCurrentDate());
 
         return view;
     }

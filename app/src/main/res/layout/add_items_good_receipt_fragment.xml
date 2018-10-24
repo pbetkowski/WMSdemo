@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -23,5 +24,44 @@
         android:textColor="#86AD33"
         android:textSize="13dp"
         android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:id="@+id/documentNuberTextView"
+            android:text="Document Number"
+            android:gravity="left"
+            android:paddingLeft="50dp"
+            android:textColor="#86AD33"
+            android:textSize="13dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/docDateTextView"
+            android:paddingEnd="60dp"
+            android:layout_marginBottom="10dp"
+            android:text="Date"
+            android:gravity="end"
+            android:textColor="#86AD33"
+            android:textSize="13dp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemList">
+    </ListView>
 
 </LinearLayout>
