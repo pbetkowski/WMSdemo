@@ -30,7 +30,7 @@ public class GoodsReceiptMainMenu extends Fragment {
         createButton = view.findViewById(R.id.createButton);
         createdButton = view.findViewById(R.id.createdButton);
 
-        createButton.setOnClickListener(v -> navigate(new GoodsReceipt()));
+        createButton.setOnClickListener(v -> navigate(new ChooseClientFragment()));
 
 
         return view;

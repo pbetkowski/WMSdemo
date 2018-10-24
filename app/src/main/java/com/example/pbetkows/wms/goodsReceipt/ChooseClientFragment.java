@@ -1,9 +1,8 @@
-package com.example.pbetkows.wms.tests;
+package com.example.pbetkows.wms.goodsReceipt;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,11 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.pbetkows.wms.MainActivity;
 import com.example.pbetkows.wms.R;
+import com.example.pbetkows.wms.apiKeys.ApiKeys;
 import com.example.pbetkows.wms.model.Sample;
-import com.example.pbetkows.wms.services.SampleService;
+import com.example.pbetkows.wms.model.Wiki;
 import com.example.pbetkows.wms.services.RXService;
+import com.example.pbetkows.wms.services.SampleService;
 import com.example.pbetkows.wms.utils.MessageBox;
 
 import java.util.ArrayList;
@@ -28,65 +28,61 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class SampleList extends Fragment implements RXService {
+import static android.support.constraint.Constraints.TAG;
 
+public class ChooseClientFragment extends Fragment implements RXService {
+
+    SampleService sampleService;
     private List<String> result;
     private ListView listView;
-    private SampleService sampleService;
-
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sample_list, container, false);
-
-        listView = view.findViewById(R.id.list);
+        View view = inflater.inflate(R.layout.chose_client_fragment_goods_receipt, container, false);
+        listView = view.findViewById(R.id.client_list_goodsReceipt);
         result = new ArrayList<>();
         initializeRXToList();
-        getData();
-
+        getAll();
 
         return view;
-    }
-
-    private void getData() {
-        sampleService.getAll()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(
-                        v -> {
-                            MessageBox.Show(getContext(), "Connecting to API...");
-
-                            for (Sample w : v) {
-                                result.add(w.getTitle());
-                            }
-                        },
-                        err -> {
-                            MessageBox.Show(getContext() ,err.getMessage());
-                        },
-
-                        () -> {
-                            Log.d("TAG", "Finish getAll");
-                            ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, result);
-                            listView.setAdapter(adapter);
-                        },
-                        d -> {
-                            Log.d("TAG", "Finished");
-                        }
-                );
     }
 
     @Override
     public void initializeRXToList() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://jsonplaceholder.typicode.com/posts/")
+                .baseUrl("https://gitlab.com/api/v4/projects/")
                 .addConverterFactory(JacksonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
+
         sampleService = retrofit.create(SampleService.class);
-        Log.d("TAG", "TEST");
+    }
+
+    private void getAll() {
+        result = new ArrayList<>();
+        sampleService.getAll(ApiKeys.API_KEY, ApiKeys.PROJECT_ID)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(
+                        val -> {
+                            MessageBox.Show(getContext(), "Connecting to API...");
+                            for (Wiki v : val) {
+                                result.add(v.getSlug());
+                            }
+                        },
+                        error -> {
+                            MessageBox.Show(getContext(), error.getMessage());
+                        },
+                        () -> {
+                            ArrayAdapter adapter = new ArrayAdapter(getContext(),
+                                    android.R.layout.simple_list_item_1, result);
+                            listView.setAdapter(adapter);
+                        },
+                        d -> {
+                            Log.d(TAG, "subscribe getAll");
+                        }
+                );
     }
 }
-
-

@@ -1,6 +1,7 @@
 package com.example.pbetkows.wms.services;
 
 import com.example.pbetkows.wms.model.Sample;
+import com.example.pbetkows.wms.model.Wiki;
 
 import java.util.List;
 
@@ -18,4 +19,13 @@ public interface SampleService  {
     })
     @GET("https://jsonplaceholder.typicode.com/posts")
     Observable<List<Sample>> getAll();
+
+
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("{projectId}/wikis?with_content=1")
+    Observable<List<Wiki>> getAll(@Header("PRIVATE-TOKEN") String token, @Path("projectId") int projectId);
 }
