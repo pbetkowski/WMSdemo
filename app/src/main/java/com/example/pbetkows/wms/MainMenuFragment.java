@@ -15,13 +15,17 @@ import com.example.pbetkows.wms.goodsReceipt.GoodsReceiptMainMenu;
 import com.example.pbetkows.wms.tests.SampleList;
 import com.example.pbetkows.wms.utils.DataWedgeFragment;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class MainMenuFragment extends Fragment {
 
+    @BindView(R.id.sample)
     Button sampleButton;
-
+    @BindView(R.id.GoodsReceiptButton)
     Button goodsReceiptButton;
-
+    @BindView(R.id.dataWedgeButton)
     Button dataWedgeButton;
 
 
@@ -30,9 +34,7 @@ public class MainMenuFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_menu_fragment, container, false);
-        sampleButton = view.findViewById(R.id.sample);
-        goodsReceiptButton = view.findViewById(R.id.GoodsReceiptButton);
-        dataWedgeButton = view.findViewById(R.id.dataWedgeButton);
+        ButterKnife.bind(this, view);
 
 
         sampleButton.setOnClickListener(v -> navigate(new SampleList()));

@@ -22,6 +22,8 @@ import com.example.pbetkows.wms.utils.MessageBox;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -32,19 +34,20 @@ import static android.support.constraint.Constraints.TAG;
 
 public class ChooseClientFragment extends Fragment implements RXService {
 
-    SampleService sampleService;
-    private List<String> result;
-    private ListView listView;
+    @BindView(R.id.client_list_goodsReceipt)
+    ListView listView;
 
+    private List<String> result;
+    SampleService sampleService;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chose_client_fragment_goods_receipt, container, false);
-        listView = view.findViewById(R.id.client_list_goodsReceipt);
-        result = new ArrayList<>();
+        ButterKnife.bind(this, view);
+
         initializeRXToList();
-        getAll();
+        getClients();
 
         return view;
     }
@@ -60,7 +63,7 @@ public class ChooseClientFragment extends Fragment implements RXService {
         sampleService = retrofit.create(SampleService.class);
     }
 
-    private void getAll() {
+    private void getClients() {
         result = new ArrayList<>();
         sampleService.getAll(ApiKeys.API_KEY, ApiKeys.PROJECT_ID)
                 .observeOn(AndroidSchedulers.mainThread())

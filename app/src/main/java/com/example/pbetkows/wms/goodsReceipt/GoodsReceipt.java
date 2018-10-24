@@ -19,34 +19,31 @@ import com.example.pbetkows.wms.model.GoodsReceiptN;
 import com.example.pbetkows.wms.services.GoodsReceiptNService;
 import com.example.pbetkows.wms.services.RXService;
 
-import com.example.pbetkows.wms.utils.MessageBox;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class GoodsReceipt extends Fragment implements RXService {
 
+    @BindView(R.id.list)
+    ListView listView;
     private List<String> result;
-    private ListView listView;
+
     private GoodsReceiptNService goodsReceiptNService;
-    private FloatingActionButton returnButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.goods_receipt_n, container, false);
-        returnButton = view.findViewById(R.id.returnButton);
-        listView = view.findViewById(R.id.list);
+        ButterKnife.bind(this, view);
         result = new ArrayList<>();
         initializeRXToList();
-        // getData();
-
 
         return view;
     }

@@ -13,9 +13,13 @@ import android.widget.Button;
 
 import com.example.pbetkows.wms.utils.Navigator;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class LoginFragment extends Fragment {
 
+    @BindView(R.id.loginButton)
     Button loginButton;
 
 
@@ -25,7 +29,8 @@ public class LoginFragment extends Fragment {
 
 
         View view = inflater.inflate(R.layout.login_fragment, container, false);
-        loginButton = view.findViewById(R.id.loginButton);
+
+        ButterKnife.bind(this, view);
 
 
         loginButton.setOnClickListener(v -> {

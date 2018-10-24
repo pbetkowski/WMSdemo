@@ -15,10 +15,15 @@ import com.example.pbetkows.wms.R;
 
 import java.util.Objects;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class GoodsReceiptMainMenu extends Fragment {
 
 
-    Button createButton;
+    @BindView(R.id.createButton)
+    Button createButton ;
+    @BindView(R.id.createdButton)
     Button createdButton;
 
     @Nullable
@@ -27,8 +32,7 @@ public class GoodsReceiptMainMenu extends Fragment {
 
         View view = inflater.inflate(R.layout.goods_receipt_menu, container, false);
 
-        createButton = view.findViewById(R.id.createButton);
-        createdButton = view.findViewById(R.id.createdButton);
+        ButterKnife.bind(this, view);
 
         createButton.setOnClickListener(v -> navigate(new ChooseClientFragment()));
 
