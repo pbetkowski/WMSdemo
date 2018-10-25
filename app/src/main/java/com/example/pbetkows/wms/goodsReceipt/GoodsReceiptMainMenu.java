@@ -18,6 +18,8 @@ import com.example.pbetkows.wms.tests.SampleList;
 import com.example.pbetkows.wms.utils.DataWedgeFragment;
 import com.example.pbetkows.wms.utils.MessageBox;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -29,6 +31,7 @@ public class GoodsReceiptMainMenu extends Fragment {
 
     @BindView(R.id.goodsReceiptMenu)
     ListView goodsReceiptMenu;
+    List<String> list = new ArrayList<>();
     String [] items = new String[] {"New Goods Receipt", "Goods Receipt Log"};
 
     @Nullable

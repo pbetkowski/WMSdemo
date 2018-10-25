@@ -55,15 +55,4 @@ public class DataWedgeFragment extends Fragment {
         });
         return view;
     }
-
-    private void navigate(Fragment fragment) {
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
-    }
-
-
 }
