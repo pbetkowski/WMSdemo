@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,14 +25,15 @@ public class DataWedgeFragment extends Fragment {
     @BindView(R.id.scannerButton) Button scanButton;
     @BindView(R.id.resultEditText) EditText resultText;
 
-    String barcode;
+    View view;
+
     private ZXingScannerView scannerView;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.data_wedge_fragment, container, false);
+        view = inflater.inflate(R.layout.data_wedge_fragment, container, false);
 
         ButterKnife.bind(this, view);
 
@@ -41,6 +43,11 @@ public class DataWedgeFragment extends Fragment {
             scannerView.setResultHandler(result -> {
                MessageBox.Show(getContext(), result.getText());
                scannerView.stopCamera();
+
+                if(view.getParent()!=null)
+                    ((ViewGroup)view.getParent()).removeView(view); // <- fix
+               getActivity().setContentView(view);
+               resultText.setText(result.getText());
             });
             scannerView.startCamera();
 
@@ -48,4 +55,15 @@ public class DataWedgeFragment extends Fragment {
         });
         return view;
     }
+
+    private void navigate(Fragment fragment) {
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
+    }
+
+
 }
