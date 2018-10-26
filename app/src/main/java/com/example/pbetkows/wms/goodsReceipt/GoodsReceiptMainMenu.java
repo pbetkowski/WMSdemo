@@ -48,8 +48,8 @@ public class GoodsReceiptMainMenu extends Fragment {
                 case ("New Goods Receipt"):
                     navigate(new ChooseClientFragment())
                     ;break;
-                case ("Stock Transfer"):
-                    MessageBox.Show(getContext(), "Not implemented yet");
+                case ("Goods Receipt Log"):
+                    navigate(new GoodsReceiptLogFragment());
                     break;
             }
         });

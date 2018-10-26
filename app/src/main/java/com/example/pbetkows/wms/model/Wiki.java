@@ -35,6 +35,16 @@ public class Wiki {
         return title;
     }
 
+    @Override
+    public String toString() {
+        return "Wiki{" +
+                "content='" + content + '\'' +
+                ", format='" + format + '\'' +
+                ", slug='" + slug + '\'' +
+                ", title='" + title + '\'' +
+                '}';
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }

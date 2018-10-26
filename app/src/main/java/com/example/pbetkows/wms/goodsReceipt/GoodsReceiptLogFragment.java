@@ -1,4 +1,4 @@
-package com.example.pbetkows.wms.tests;
+package com.example.pbetkows.wms.goodsReceipt;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,13 +14,15 @@ import android.widget.ListView;
 import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.apiKeys.ApiKeys;
 import com.example.pbetkows.wms.model.Wiki;
-import com.example.pbetkows.wms.services.SampleService;
 import com.example.pbetkows.wms.services.RXService;
+import com.example.pbetkows.wms.services.SampleService;
 import com.example.pbetkows.wms.utils.MessageBox;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -29,26 +31,37 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class SampleList extends Fragment implements RXService {
+public class GoodsReceiptLogFragment extends Fragment implements RXService {
 
+    View view;
+
+    @BindView(R.id.createdGoodsReceiptList)
+    ListView createdGoodsReceiptList;
+
+    private  SampleService sampleService;
     private List<String> result;
-    private ListView listView;
-    private SampleService sampleService;
-
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sample_list, container, false);
 
-        listView = view.findViewById(R.id.list1);
-        result = new ArrayList<>();
+        view = inflater.inflate(R.layout.goods_receipt_log, container, false);
         initializeRXToList();
+        ButterKnife.bind(this, view);
+
         getData();
 
-
         return view;
+    }
+
+    @Override
+    public void initializeRXToList() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("https://gitlab.com/api/v4/projects/")
+                .addConverterFactory(JacksonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .build();
+        sampleService = retrofit.create(SampleService.class);
     }
 
     private void getData() {
@@ -69,7 +82,7 @@ public class SampleList extends Fragment implements RXService {
                         () -> {
                             ArrayAdapter adapter = new ArrayAdapter(getContext(),
                                     android.R.layout.simple_list_item_1, result);
-                            listView.setAdapter(adapter);
+                            createdGoodsReceiptList.setAdapter(adapter);
                         },
                         d -> {
                             Log.d(TAG, "subscribe getAll");
@@ -77,16 +90,4 @@ public class SampleList extends Fragment implements RXService {
                 );
     }
 
-    @Override
-    public void initializeRXToList() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://gitlab.com/api/v4/projects/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        sampleService = retrofit.create(SampleService.class);
-        Log.d("TAG", "TEST");
-    }
 }
-
-

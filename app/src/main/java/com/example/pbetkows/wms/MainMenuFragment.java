@@ -26,13 +26,6 @@ import butterknife.ButterKnife;
 
 public class MainMenuFragment extends Fragment {
 
-//    @BindView(R.id.sample)
-//    Button sampleButton;
-//    @BindView(R.id.GoodsReceiptButton)
-//    Button goodsReceiptButton;
-//    @BindView(R.id.dataWedgeButton)
-//    Button dataWedgeButton;
-
     @BindView(R.id.main_menu_list)
     ListView listView;
 

@@ -64,6 +64,17 @@
            android:id="@+id/itemList">
        </ListView>
 
+       <RelativeLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+
+
+
+
+
+       </RelativeLayout>
+
        <android.support.design.widget.FloatingActionButton
            android:id="@+id/addItemToGoodsReceipt"
            android:layout_width="wrap_content"
@@ -72,6 +83,16 @@
            app:backgroundTint="#4c4c4c"
            android:clickable="true"
            android:src="@drawable/ic_add_circle_black_24dp"
+           app:elevation="4dp" />
+
+       <android.support.design.widget.FloatingActionButton
+           android:id="@+id/saveGoodsReceipt"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="bottom |left"
+           app:backgroundTint="#4c4c4c"
+           android:clickable="true"
+           android:src="@drawable/ic_save_black_24dp"
            app:elevation="4dp" />
    </FrameLayout>
 

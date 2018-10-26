@@ -10,4 +10,11 @@ public class StaticGenerators {
         Date date = new Date();
         return formatter.format(date);
     }
+
+
+
+    //TODO
+//    public static String generateDocNumber() {
+//
+//    }
 }
