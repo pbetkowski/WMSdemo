@@ -96,16 +96,14 @@ public class AddItemsToListFragment extends Fragment implements RXService {
                     .subscribeOn(Schedulers.io())
                     .subscribe(
                             m -> {
-                                MessageBox.Show(getContext(), "Saved in database");
+
                                 saveGoodsReceiptButton.setEnabled(false);
                                 //navigate(new MainMenuFragment());
                             },
                             error -> {
                                 MessageBox.Show(getContext(), error.getMessage());
                             },
-                            () -> {
-                                //getAll();
-                            }
+                            () ->  MessageBox.Show(getContext(), "Saved in database")
                     );
         });
 

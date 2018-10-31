@@ -81,7 +81,6 @@ public class ChooseClientFragment extends Fragment implements RXService {
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         val -> {
-                            MessageBox.Show(getContext(), "Connecting to API...");
                             for (Wiki v : val) {
                                 supplierList.add(v.getSlug());
                             }
@@ -94,9 +93,7 @@ public class ChooseClientFragment extends Fragment implements RXService {
                                     android.R.layout.simple_list_item_1, supplierList);
                             listView.setAdapter(adapter);
                         },
-                        d -> {
-                            Log.d(TAG, "subscribe getAll");
-                        }
+                        d -> MessageBox.Show(getContext(), "Connecting to API...")
                 );
     }
 

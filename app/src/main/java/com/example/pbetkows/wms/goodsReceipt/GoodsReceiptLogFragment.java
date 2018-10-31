@@ -71,22 +71,17 @@ public class GoodsReceiptLogFragment extends Fragment implements RXService {
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         val -> {
-                            MessageBox.Show(getContext(), "Connecting to API...");
                             for (Wiki v : val) {
                                 result.add(v.getSlug());
                             }
                         },
-                        error -> {
-                            MessageBox.Show(getContext(), error.getMessage());
-                        },
+                        error -> MessageBox.Show(getContext(), error.getMessage()),
                         () -> {
                             ArrayAdapter adapter = new ArrayAdapter(getContext(),
                                     android.R.layout.simple_list_item_1, result);
                             createdGoodsReceiptList.setAdapter(adapter);
                         },
-                        d -> {
-                            Log.d(TAG, "subscribe getAll");
-                        }
+                        d -> MessageBox.Show(getContext(), "Connecting to API...")
                 );
     }
 
