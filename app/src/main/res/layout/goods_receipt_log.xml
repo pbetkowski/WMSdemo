@@ -21,6 +21,11 @@
         android:textStyle="bold" />
 
 
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/searchDocument"/>
+
     <ListView
         android:id="@+id/createdGoodsReceiptList"
         android:layout_width="match_parent"

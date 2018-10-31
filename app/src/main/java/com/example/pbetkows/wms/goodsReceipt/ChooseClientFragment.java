@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.example.pbetkows.wms.LoginFragment;
 import com.example.pbetkows.wms.R;
@@ -22,6 +23,7 @@ import com.example.pbetkows.wms.services.SampleService;
 import com.example.pbetkows.wms.utils.MessageBox;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -33,19 +35,19 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import static android.support.constraint.Constraints.TAG;
 
 public class ChooseClientFragment extends Fragment implements RXService {
 
-    @BindView(R.id.client_list_goodsReceipt)
-    ListView listView;
+    @BindView(R.id.client_list_goodsReceipt) ListView listView;
+    @BindView(R.id.chooseClient) SearchView chooseClient;
+
 
     private List<String> supplierList;
     SampleService sampleService;
 
     AddItemsToListFragment chooseClientFragment = new AddItemsToListFragment();
     Bundle args = new Bundle();
-
+    ArrayAdapter adapter;
     Observable<Wiki> wikiObservable;
 
 
@@ -63,6 +65,19 @@ public class ChooseClientFragment extends Fragment implements RXService {
 
         initializeRXToList();
         getClients();
+
+        chooseClient.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
 
         return view;
     }
@@ -93,7 +108,8 @@ public class ChooseClientFragment extends Fragment implements RXService {
                         },
                         error -> MessageBox.Show(getContext(), error.getMessage()),
                         () -> {
-                            ArrayAdapter adapter = new ArrayAdapter(getContext(),
+                            Collections.sort(supplierList);
+                            adapter = new ArrayAdapter(getContext(),
                                     android.R.layout.simple_list_item_1, supplierList);
                             listView.setAdapter(adapter);
                         },

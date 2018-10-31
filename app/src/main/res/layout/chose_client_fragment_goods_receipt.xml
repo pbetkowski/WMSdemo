@@ -21,6 +21,11 @@
         android:textSize="13dp"
         android:textStyle="bold" />
 
+    <SearchView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/chooseClient"/>
+
 
     <ListView
         android:id="@+id/client_list_goodsReceipt"

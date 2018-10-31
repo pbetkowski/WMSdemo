@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.SearchView;
 
 import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.apiKeys.ApiKeys;
@@ -18,8 +20,10 @@ import com.example.pbetkows.wms.model.Wiki;
 import com.example.pbetkows.wms.services.RXService;
 import com.example.pbetkows.wms.services.SampleService;
 import com.example.pbetkows.wms.utils.MessageBox;
+import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,12 +41,15 @@ public class GoodsReceiptLogFragment extends Fragment implements RXService {
 
     View view;
 
-    @BindView(R.id.createdGoodsReceiptList)
-    ListView createdGoodsReceiptList;
+    @BindView(R.id.createdGoodsReceiptList)  ListView createdGoodsReceiptList;
+    @BindView(R.id.searchDocument) SearchView searchEditText;
+
+
 
     private  SampleService sampleService;
     private List<String> result;
     Observable<Wiki> wikiObservable;
+    ArrayAdapter mainAdapter;
 
     @Nullable
     @Override
@@ -51,11 +58,27 @@ public class GoodsReceiptLogFragment extends Fragment implements RXService {
         view = inflater.inflate(R.layout.goods_receipt_log, container, false);
         initializeRXToList();
         ButterKnife.bind(this, view);
-
         getData();
+        searchEditText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                mainAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+
+
+
 
         return view;
     }
+
 
     @Override
     public void initializeRXToList() {
@@ -80,9 +103,11 @@ public class GoodsReceiptLogFragment extends Fragment implements RXService {
                         },
                         error -> MessageBox.Show(getContext(), error.getMessage()),
                         () -> {
-                            ArrayAdapter adapter = new ArrayAdapter(getContext(),
+                            Collections.sort(result);
+                            mainAdapter = new ArrayAdapter(getContext(),
                                     android.R.layout.simple_list_item_1, result);
-                            createdGoodsReceiptList.setAdapter(adapter);
+                            createdGoodsReceiptList.setAdapter(mainAdapter);
+
                         },
                         d -> MessageBox.Show(getContext(), "Connecting to API...")
                 );
