@@ -1,5 +1,6 @@
 package com.example.pbetkows.wms.goodsReceipt;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,6 +26,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -43,6 +45,8 @@ public class ChooseClientFragment extends Fragment implements RXService {
 
     AddItemsToListFragment chooseClientFragment = new AddItemsToListFragment();
     Bundle args = new Bundle();
+
+    Observable<Wiki> wikiObservable;
 
 
     @Nullable
@@ -74,20 +78,20 @@ public class ChooseClientFragment extends Fragment implements RXService {
         sampleService = retrofit.create(SampleService.class);
     }
 
+    @SuppressLint("CheckResult")
     private void getClients() {
         supplierList = new ArrayList<>();
+
         sampleService.getAll(ApiKeys.API_KEY, ApiKeys.PROJECT_ID)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         val -> {
-                            for (Wiki v : val) {
-                                supplierList.add(v.getSlug());
-                            }
+                            wikiObservable = Observable.fromIterable(val);
+                            wikiObservable.subscribe(n -> supplierList.add(n.getSlug()));
+
                         },
-                        error -> {
-                            MessageBox.Show(getContext(), error.getMessage());
-                        },
+                        error -> MessageBox.Show(getContext(), error.getMessage()),
                         () -> {
                             ArrayAdapter adapter = new ArrayAdapter(getContext(),
                                     android.R.layout.simple_list_item_1, supplierList);

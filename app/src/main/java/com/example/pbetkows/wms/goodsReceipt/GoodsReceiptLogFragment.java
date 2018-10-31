@@ -1,5 +1,6 @@
 package com.example.pbetkows.wms.goodsReceipt;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +24,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
@@ -40,6 +42,7 @@ public class GoodsReceiptLogFragment extends Fragment implements RXService {
 
     private  SampleService sampleService;
     private List<String> result;
+    Observable<Wiki> wikiObservable;
 
     @Nullable
     @Override
@@ -64,6 +67,7 @@ public class GoodsReceiptLogFragment extends Fragment implements RXService {
         sampleService = retrofit.create(SampleService.class);
     }
 
+    @SuppressLint("CheckResult")
     private void getData() {
         result = new ArrayList<>();
         sampleService.getAll(ApiKeys.API_KEY, ApiKeys.PROJECT_I2)
@@ -71,9 +75,8 @@ public class GoodsReceiptLogFragment extends Fragment implements RXService {
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         val -> {
-                            for (Wiki v : val) {
-                                result.add(v.getSlug());
-                            }
+                            wikiObservable = Observable.fromIterable(val);
+                            wikiObservable.subscribe(v -> result.add(v.getSlug()));
                         },
                         error -> MessageBox.Show(getContext(), error.getMessage()),
                         () -> {
