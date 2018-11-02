@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -43,12 +44,12 @@ public class ChooseClientFragment extends Fragment implements RXService {
 
 
     private List<String> supplierList;
-    SampleService sampleService;
+    private SampleService sampleService;
+    private AddItemsToListFragment chooseClientFragment = new AddItemsToListFragment();
 
-    AddItemsToListFragment chooseClientFragment = new AddItemsToListFragment();
-    Bundle args = new Bundle();
-    ArrayAdapter adapter;
-    Observable<Wiki> wikiObservable;
+    private Bundle args = new Bundle();
+    private ArrayAdapter adapter;
+    private Observable<Wiki> wikiObservable;
 
 
     @Nullable
@@ -57,27 +58,9 @@ public class ChooseClientFragment extends Fragment implements RXService {
         View view = inflater.inflate(R.layout.chose_client_fragment_goods_receipt, container, false);
         ButterKnife.bind(this, view);
 
-        listView.setOnItemClickListener((a, b, c, d) -> {
-            args.putString("key", supplierList.get(c));
-            chooseClientFragment.setArguments(args);
-            navigate(chooseClientFragment);
-        });
-
+        initializeListeners();
         initializeRXToList();
         getClients();
-
-        chooseClient.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
-            }
-        });
 
         return view;
     }
@@ -118,11 +101,34 @@ public class ChooseClientFragment extends Fragment implements RXService {
     }
 
     private void navigate(Fragment fragment) {
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
+        if (getFragmentManager() != null) {
+            getFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .addToBackStack(null)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit();
+        }
+    }
+
+    private void initializeListeners() {
+        chooseClient.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        listView.setOnItemClickListener((a, b, c, d) -> {
+            args.putString("key", listView.getAdapter().getItem(c).toString());
+            chooseClientFragment.setArguments(args);
+            navigate(chooseClientFragment);
+        });
     }
 }
