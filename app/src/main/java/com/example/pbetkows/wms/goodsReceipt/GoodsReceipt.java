@@ -3,21 +3,16 @@ package com.example.pbetkows.wms.goodsReceipt;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.pbetkows.wms.MainActivity;
 import com.example.pbetkows.wms.R;
-import com.example.pbetkows.wms.model.GoodsReceiptN;
 import com.example.pbetkows.wms.services.GoodsReceiptNService;
-import com.example.pbetkows.wms.services.RXService;
+import com.example.pbetkows.wms.services.RetroFitService;
 
 
 import java.util.ArrayList;
@@ -29,7 +24,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class GoodsReceipt extends Fragment implements RXService {
+public class GoodsReceipt extends Fragment implements RetroFitService {
 
     @BindView(R.id.list)
     ListView listView;
@@ -43,13 +38,13 @@ public class GoodsReceipt extends Fragment implements RXService {
         View view = inflater.inflate(R.layout.goods_receipt_n, container, false);
         ButterKnife.bind(this, view);
         result = new ArrayList<>();
-        initializeRXToList();
+        initializeRetrofit();
 
         return view;
     }
 
     @Override
-    public void initializeRXToList() {
+    public void initializeRetrofit() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://192.168.0.12:8080/api/pos/")
                 .addConverterFactory(JacksonConverterFactory.create())

@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.example.pbetkows.wms.utils.MessageBox;
+
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.container, new LoginFragment())
+                .replace(R.id.container, new MainMenuFragment())
                 .addToBackStack(null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
@@ -52,6 +54,20 @@ public class MainActivity extends AppCompatActivity {
 //            Log.d("TAG", "onBackPressed: 3");
 //        }
     }
+
+    @Override
+    public void recreate() {
+        super.recreate();
+        MessageBox.Show(getApplicationContext(), "Recreate");
+        setContentView(R.layout.activity_main);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, new MainMenuFragment())
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
+    }
+
 
     // prepared pagerView
 //    private void setupPager(ViewPager viewPager) {

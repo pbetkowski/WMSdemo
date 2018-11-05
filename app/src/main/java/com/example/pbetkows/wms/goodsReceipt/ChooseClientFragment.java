@@ -6,20 +6,17 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 
-import com.example.pbetkows.wms.LoginFragment;
 import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.apiKeys.ApiKeys;
 import com.example.pbetkows.wms.model.Wiki;
-import com.example.pbetkows.wms.services.RXService;
+import com.example.pbetkows.wms.services.RetroFitService;
 import com.example.pbetkows.wms.services.SampleService;
 import com.example.pbetkows.wms.utils.MessageBox;
 
@@ -37,7 +34,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 
-public class ChooseClientFragment extends Fragment implements RXService {
+public class ChooseClientFragment extends Fragment implements RetroFitService {
 
     @BindView(R.id.client_list_goodsReceipt) ListView listView;
     @BindView(R.id.chooseClient) SearchView chooseClient;
@@ -59,14 +56,14 @@ public class ChooseClientFragment extends Fragment implements RXService {
         ButterKnife.bind(this, view);
 
         initializeListeners();
-        initializeRXToList();
+        initializeRetrofit();
         getClients();
 
         return view;
     }
 
     @Override
-    public void initializeRXToList() {
+    public void initializeRetrofit() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://gitlab.com/api/v4/projects/")
                 .addConverterFactory(JacksonConverterFactory.create())

@@ -1,6 +1,6 @@
 //package com.example.pbetkows.wms.utils;
 //
-//import com.example.pbetkows.wms.services.RXService;
+//import com.example.pbetkows.wms.services.RetroFitService;
 //import com.example.pbetkows.wms.services.SampleService;
 //
 //import retrofit2.Retrofit;
@@ -9,7 +9,7 @@
 //
 //public class RXGenerator {
 //
-//    public static Class initializeRXToList(String url, Interfa rxService) {
+//    public static Class initializeRetrofit(String url, Interfa rxService) {
 //        Retrofit retrofit = new Retrofit.Builder()
 //                .baseUrl(url)
 //                .addConverterFactory(JacksonConverterFactory.create())

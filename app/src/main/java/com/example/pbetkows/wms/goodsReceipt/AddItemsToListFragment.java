@@ -1,33 +1,32 @@
 package com.example.pbetkows.wms.goodsReceipt;
 
-import android.graphics.Camera;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.pbetkows.wms.MainActivity;
 import com.example.pbetkows.wms.MainMenuFragment;
 import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.apiKeys.ApiKeys;
 import com.example.pbetkows.wms.model.Wiki;
-import com.example.pbetkows.wms.services.RXService;
+import com.example.pbetkows.wms.services.RetroFitService;
 import com.example.pbetkows.wms.services.SampleService;
 import com.example.pbetkows.wms.utils.MessageBox;
 import com.example.pbetkows.wms.utils.StaticGenerators;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +37,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class AddItemsToListFragment extends Fragment implements RXService {
+public class AddItemsToListFragment extends Fragment implements RetroFitService {
 
     @BindView(R.id.clientTextView) TextView clientTextView;
     @BindView(R.id.documentNuberTextView) TextView documentNumberTextView;
@@ -59,9 +58,10 @@ public class AddItemsToListFragment extends Fragment implements RXService {
         view = inflater.inflate(R.layout.add_items_good_receipt_fragment, container, false);
 
         ButterKnife.bind(this, view);
+        assert getArguments() != null;
         clientTextView.setText(getArguments().getString("key"));
         docDateTextView.setText(StaticGenerators.getCurrentDate());
-        initializeRXToList();
+        initializeRetrofit();
 
         addItemButton.setOnClickListener(v -> {
             scannerView = new ZXingScannerView(getActivity());
@@ -77,8 +77,6 @@ public class AddItemsToListFragment extends Fragment implements RXService {
             });
             scannerView.startCamera();
         });
-
-
 
         saveGoodsReceiptButton.setOnClickListener(v -> {
 
@@ -98,7 +96,7 @@ public class AddItemsToListFragment extends Fragment implements RXService {
                             m -> {
 
                                 saveGoodsReceiptButton.setEnabled(false);
-                                navigate(new MainMenuFragment());
+                                Objects.requireNonNull(getActivity()).recreate();
                             },
                             error -> {
                                 MessageBox.Show(getContext(), error.getMessage());
@@ -107,20 +105,18 @@ public class AddItemsToListFragment extends Fragment implements RXService {
                     );
         });
 
-
-
         return view;
     }
 
     private void addToList(String barcode) {
         items.add(barcode);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_list_item_1, items);
         itemList.setAdapter(adapter);
     }
 
 
     @Override
-    public void initializeRXToList() {
+    public void initializeRetrofit() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://gitlab.com/api/v4/projects/")
                 .addConverterFactory(JacksonConverterFactory.create())
@@ -131,6 +127,7 @@ public class AddItemsToListFragment extends Fragment implements RXService {
     }
 
     private void navigate(Fragment fragment) {
+
         assert getFragmentManager() != null;
         getFragmentManager()
                 .beginTransaction()

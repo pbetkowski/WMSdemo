@@ -15,7 +15,7 @@ import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.apiKeys.ApiKeys;
 import com.example.pbetkows.wms.model.Wiki;
 import com.example.pbetkows.wms.services.SampleService;
-import com.example.pbetkows.wms.services.RXService;
+import com.example.pbetkows.wms.services.RetroFitService;
 import com.example.pbetkows.wms.utils.MessageBox;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class SampleList extends Fragment implements RXService {
+public class SampleList extends Fragment implements RetroFitService {
 
     private List<String> result;
     private ListView listView;
@@ -44,7 +44,7 @@ public class SampleList extends Fragment implements RXService {
 
         listView = view.findViewById(R.id.list1);
         result = new ArrayList<>();
-        initializeRXToList();
+        initializeRetrofit();
         getData();
 
 
@@ -78,7 +78,7 @@ public class SampleList extends Fragment implements RXService {
     }
 
     @Override
-    public void initializeRXToList() {
+    public void initializeRetrofit() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://gitlab.com/api/v4/projects/")
                 .addConverterFactory(JacksonConverterFactory.create())

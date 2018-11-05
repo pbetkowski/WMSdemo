@@ -20,32 +20,25 @@ import com.example.pbetkows.wms.tests.SampleList;
 import com.example.pbetkows.wms.utils.DataWedgeFragment;
 import com.example.pbetkows.wms.utils.MessageBox;
 
+import java.util.Objects;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
 public class MainMenuFragment extends Fragment {
 
-    @BindView(R.id.main_menu_list)
-    ListView listView;
+    @BindView(R.id.main_menu_list) ListView listView;
 
-    String [] items = new String[] {"Goods Receipt", "Stock Transfer", "Data Wedge"};
+    private String [] items = new String[] {"Goods Receipt", "Stock Transfer", "Data Wedge"};
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_menu_fragment, container, false);
         ButterKnife.bind(this, view);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
-        listView.setAdapter(adapter);
 
-        listView.setOnItemClickListener((parent, view1, position, id) -> {
-            switch (items[position]) {
-                case ("Goods Receipt"): navigate(new GoodsReceiptMainMenu());break;
-                case ("Stock Transfer"): navigate(new SampleList());break;
-                case ("Data Wedge"): navigate(new DataWedgeFragment());break;
-            }
-        });
+        setListView();
 
         return view;
     }
@@ -63,5 +56,19 @@ public class MainMenuFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    private void setListView() {
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_list_item_1, items);
+        listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener((parent, view1, position, id) -> {
+            switch (items[position]) {
+                case ("Goods Receipt"): navigate(new GoodsReceiptMainMenu());break;
+                case ("Stock Transfer"): navigate(new SampleList());break;
+                case ("Data Wedge"): navigate(new DataWedgeFragment());break;
+            }
+        });
     }
 }

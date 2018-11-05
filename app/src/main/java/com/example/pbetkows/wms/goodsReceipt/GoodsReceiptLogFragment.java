@@ -5,22 +5,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 
 import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.apiKeys.ApiKeys;
 import com.example.pbetkows.wms.model.Wiki;
-import com.example.pbetkows.wms.services.RXService;
+import com.example.pbetkows.wms.services.RetroFitService;
 import com.example.pbetkows.wms.services.SampleService;
 import com.example.pbetkows.wms.utils.MessageBox;
-import com.jakewharton.rxbinding2.widget.RxTextView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,9 +32,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-import static android.support.constraint.Constraints.TAG;
-
-public class GoodsReceiptLogFragment extends Fragment implements RXService {
+public class GoodsReceiptLogFragment extends Fragment implements RetroFitService {
 
     View view;
 
@@ -56,7 +51,7 @@ public class GoodsReceiptLogFragment extends Fragment implements RXService {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.goods_receipt_log, container, false);
-        initializeRXToList();
+        initializeRetrofit();
         ButterKnife.bind(this, view);
         getData();
         searchEditText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -81,7 +76,7 @@ public class GoodsReceiptLogFragment extends Fragment implements RXService {
 
 
     @Override
-    public void initializeRXToList() {
+    public void initializeRetrofit() {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("https://gitlab.com/api/v4/projects/")
                 .addConverterFactory(JacksonConverterFactory.create())
