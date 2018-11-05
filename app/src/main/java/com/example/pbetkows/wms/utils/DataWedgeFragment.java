@@ -41,18 +41,19 @@ public class DataWedgeFragment extends Fragment {
             scannerView = new ZXingScannerView(getActivity());
             getActivity().setContentView(scannerView);
             scannerView.setResultHandler(result -> {
-               MessageBox.Show(getContext(), result.getText());
-               scannerView.stopCamera();
-
-                if(view.getParent()!=null)
-                    ((ViewGroup)view.getParent()).removeView(view); // <- fix
-               getActivity().setContentView(view);
-               resultText.setText(result.getText());
+                MessageBox.Show(getContext(), result.getText());
+                scannerView.stopCamera();
+                resultText.setText(result.getText());
             });
             scannerView.startCamera();
 
-
         });
         return view;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        scannerView.stopCamera();
     }
 }

@@ -3,6 +3,9 @@ package com.example.pbetkows.wms;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -14,7 +17,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportFragmentManager().beginTransaction()
+        getSupportFragmentManager()
+                .beginTransaction()
                 .replace(R.id.container, new LoginFragment())
                 .addToBackStack(null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
@@ -26,7 +30,30 @@ public class MainActivity extends AppCompatActivity {
 
         // setupPager(viewPager);
     }
-// prepared pagerView
+
+    @Override
+    public void onBackPressed() {
+
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        setContentView(R.layout.activity_main);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.container, new LoginFragment())
+                .addToBackStack(null)
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                .commit();
+
+//        if (count == 0) {
+//            super.onBackPressed();
+//            Log.d("TAG", "onBackPressed: 2");
+//        } else {
+//            getSupportFragmentManager().popBackStack();
+//            Log.d("TAG", "onBackPressed: 3");
+//        }
+    }
+
+    // prepared pagerView
 //    private void setupPager(ViewPager viewPager) {
 //        PageAdapter adapter = new PageAdapter(getSupportFragmentManager());
 //        adapter.addFragment(new LoginFragment(), "Login");

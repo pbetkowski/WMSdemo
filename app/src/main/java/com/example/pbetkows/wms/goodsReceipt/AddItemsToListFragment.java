@@ -98,7 +98,7 @@ public class AddItemsToListFragment extends Fragment implements RXService {
                             m -> {
 
                                 saveGoodsReceiptButton.setEnabled(false);
-                                //navigate(new MainMenuFragment());
+                                navigate(new MainMenuFragment());
                             },
                             error -> {
                                 MessageBox.Show(getContext(), error.getMessage());
@@ -131,6 +131,7 @@ public class AddItemsToListFragment extends Fragment implements RXService {
     }
 
     private void navigate(Fragment fragment) {
+        assert getFragmentManager() != null;
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, fragment)

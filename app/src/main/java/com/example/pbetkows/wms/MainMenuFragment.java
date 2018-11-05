@@ -31,9 +31,6 @@ public class MainMenuFragment extends Fragment {
 
     String [] items = new String[] {"Goods Receipt", "Stock Transfer", "Data Wedge"};
 
-
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -50,11 +47,11 @@ public class MainMenuFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
     private void navigate(Fragment fragment) {
+        assert getFragmentManager() != null;
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, fragment)
