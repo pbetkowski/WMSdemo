@@ -6,6 +6,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.example.pbetkows.wms.utils.MessageBox;
 
@@ -77,6 +80,25 @@ public class MainActivity extends AppCompatActivity {
                 .commit();
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.settings, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.item1: {
+                MessageBox.Show(getApplicationContext(), "Not implemented yet");
+            }
+            case R.id.item2: {
+                MessageBox.Show(getApplicationContext(), "Not implemented yet");
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     // prepared pagerView
 //    private void setupPager(ViewPager viewPager) {
