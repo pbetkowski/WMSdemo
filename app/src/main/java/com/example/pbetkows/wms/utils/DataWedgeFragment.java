@@ -54,6 +54,9 @@ public class DataWedgeFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        scannerView.stopCamera();
+        if (scannerView != null) {
+            scannerView.stopCamera();
+        }
+
     }
 }
