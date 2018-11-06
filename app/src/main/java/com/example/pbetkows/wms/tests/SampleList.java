@@ -58,13 +58,13 @@ public class SampleList extends Fragment implements RetroFitService {
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                         val -> {
-                            MessageBox.Show(getContext(), "Connecting to API...");
+                            MessageBox.show(getContext(), "Connecting to API...");
                             for (Wiki v : val) {
                                 result.add(v.getSlug());
                             }
                         },
                         error -> {
-                            MessageBox.Show(getContext(), error.getMessage());
+                            MessageBox.show(getContext(), error.getMessage());
                         },
                         () -> {
                             ArrayAdapter adapter = new ArrayAdapter(getContext(),

@@ -26,10 +26,9 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class GoodsReceipt extends Fragment implements RetroFitService {
 
-    @BindView(R.id.list)
-    ListView listView;
-    private List<String> result;
+    @BindView(R.id.list) ListView listView;
 
+    private List<String> result;
     private GoodsReceiptNService goodsReceiptNService;
 
     @Nullable
@@ -67,7 +66,7 @@ public class GoodsReceipt extends Fragment implements RetroFitService {
 //                            }
 //                        },
 //                        err -> {
-//                            MessageBox.Show(getContext() ,err.getMessage());
+//                            MessageBox.show(getContext() ,err.getMessage());
 //                            Log.d("TAG", err.getMessage());
 //                        },
 //

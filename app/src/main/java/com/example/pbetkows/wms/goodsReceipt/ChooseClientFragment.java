@@ -86,14 +86,14 @@ public class ChooseClientFragment extends Fragment implements RetroFitService {
                             wikiObservable.subscribe(n -> supplierList.add(n.getSlug()));
 
                         },
-                        error -> MessageBox.Show(getContext(), error.getMessage()),
+                        error -> MessageBox.show(getContext(), error.getMessage()),
                         () -> {
                             Collections.sort(supplierList);
                             adapter = new ArrayAdapter(getContext(),
                                     android.R.layout.simple_list_item_1, supplierList);
                             listView.setAdapter(adapter);
                         },
-                        d -> MessageBox.Show(getContext(), "Connecting to API...")
+                        d -> MessageBox.show(getContext(), "Connecting to API...")
                 );
     }
 

@@ -29,10 +29,10 @@ import io.reactivex.exceptions.OnErrorNotImplementedException;
 public class GoodsReceiptMainMenu extends Fragment {
 
 
-    @BindView(R.id.goodsReceiptMenu)
-    ListView goodsReceiptMenu;
-    List<String> list = new ArrayList<>();
-    String [] items = new String[] {"New Goods Receipt", "Goods Receipt Log"};
+    @BindView(R.id.goodsReceiptMenu) ListView goodsReceiptMenu;
+
+    private List<String> list = new ArrayList<>();
+    private String [] items = new String[] {"New Goods Receipt", "Goods Receipt Log"};
 
     @Nullable
     @Override

@@ -39,12 +39,10 @@ public class GoodsReceiptLogFragment extends Fragment implements RetroFitService
     @BindView(R.id.createdGoodsReceiptList)  ListView createdGoodsReceiptList;
     @BindView(R.id.searchDocument) SearchView searchEditText;
 
-
-
     private  SampleService sampleService;
     private List<String> result;
-    Observable<Wiki> wikiObservable;
-    ArrayAdapter mainAdapter;
+    private Observable<Wiki> wikiObservable;
+    private ArrayAdapter mainAdapter;
 
     @Nullable
     @Override
@@ -96,7 +94,7 @@ public class GoodsReceiptLogFragment extends Fragment implements RetroFitService
                             wikiObservable = Observable.fromIterable(val);
                             wikiObservable.subscribe(v -> result.add(v.getSlug()));
                         },
-                        error -> MessageBox.Show(getContext(), error.getMessage()),
+                        error -> MessageBox.show(getContext(), error.getMessage()),
                         () -> {
                             Collections.sort(result);
                             mainAdapter = new ArrayAdapter(getContext(),
@@ -104,7 +102,7 @@ public class GoodsReceiptLogFragment extends Fragment implements RetroFitService
                             createdGoodsReceiptList.setAdapter(mainAdapter);
 
                         },
-                        d -> MessageBox.Show(getContext(), "Connecting to API...")
+                        d -> MessageBox.show(getContext(), "Connecting to API...")
                 );
     }
 

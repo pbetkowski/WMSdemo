@@ -5,14 +5,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.pbetkows.wms.utils.MessageBox;
-
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void recreate() {
         super.recreate();
-        MessageBox.Show(getApplicationContext(), "Recreate");
+        MessageBox.show(getApplicationContext(), "Recreate");
         setContentView(R.layout.activity_main);
         getSupportFragmentManager()
                 .beginTransaction()
@@ -91,10 +88,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.item1: {
-                MessageBox.Show(getApplicationContext(), "Not implemented yet");
+                MessageBox.show(getApplicationContext(), "Not implemented yet");
             }
             case R.id.item2: {
-                MessageBox.Show(getApplicationContext(), "Not implemented yet");
+                MessageBox.show(getApplicationContext(), "Not implemented yet");
             }
         }
         return super.onOptionsItemSelected(item);

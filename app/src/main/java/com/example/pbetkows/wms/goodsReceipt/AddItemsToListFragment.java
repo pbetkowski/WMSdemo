@@ -1,6 +1,5 @@
 package com.example.pbetkows.wms.goodsReceipt;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,8 +13,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.pbetkows.wms.MainActivity;
-import com.example.pbetkows.wms.MainMenuFragment;
 import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.apiKeys.ApiKeys;
 import com.example.pbetkows.wms.model.Wiki;
@@ -39,6 +36,8 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class AddItemsToListFragment extends Fragment implements RetroFitService {
 
+    View view;
+
     @BindView(R.id.clientTextView) TextView clientTextView;
     @BindView(R.id.documentNuberTextView) TextView documentNumberTextView;
     @BindView(R.id.docDateTextView) TextView docDateTextView;
@@ -46,11 +45,9 @@ public class AddItemsToListFragment extends Fragment implements RetroFitService 
     @BindView(R.id.addItemToGoodsReceipt) FloatingActionButton addItemButton;
     @BindView(R.id.saveGoodsReceipt) FloatingActionButton saveGoodsReceiptButton;
 
-    View view;
     private ZXingScannerView scannerView;
     private SampleService sampleService;
-
-    List<String> items = new ArrayList<>();
+    private List<String> items = new ArrayList<>();
 
     @Nullable
     @Override
@@ -62,48 +59,9 @@ public class AddItemsToListFragment extends Fragment implements RetroFitService 
         clientTextView.setText(getArguments().getString("key"));
         docDateTextView.setText(StaticGenerators.getCurrentDate());
         initializeRetrofit();
+        initializeAddButton();
+        initializeSaveButton();
 
-        addItemButton.setOnClickListener(v -> {
-            scannerView = new ZXingScannerView(getActivity());
-            getActivity().setContentView(scannerView);
-            scannerView.setResultHandler(result -> {
-                MessageBox.Show(getContext(), result.getText());
-                addToList(result.getText());
-                scannerView.stopCamera();
-                //todo generuje błędy
-                if(view.getParent()!=null)
-                    ((ViewGroup)view.getParent()).removeView(view); // <- fix
-                getActivity().setContentView(view);
-            });
-            scannerView.startCamera();
-        });
-
-        saveGoodsReceiptButton.setOnClickListener(v -> {
-
-            Wiki wiki = new Wiki();
-            wiki.setTitle(clientTextView.getText().toString() + " "+docDateTextView.getText().toString());
-            StringBuilder sb = new StringBuilder();
-
-//            for (String s : items) {
-//                sb.append(s + " ");
-//            }
-            wiki.setContent("asd");
-            wiki.setSlug(clientTextView.getText().toString() + " "+docDateTextView.getText().toString());
-            sampleService.createPage(ApiKeys.API_KEY, ApiKeys.PROJECT_I2, wiki)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(
-                            m -> {
-
-                                saveGoodsReceiptButton.setEnabled(false);
-                                Objects.requireNonNull(getActivity()).recreate();
-                            },
-                            error -> {
-                                MessageBox.Show(getContext(), error.getMessage());
-                            },
-                            () ->  MessageBox.Show(getContext(), "Saved in database")
-                    );
-        });
 
         return view;
     }
@@ -135,5 +93,51 @@ public class AddItemsToListFragment extends Fragment implements RetroFitService 
                 .addToBackStack(null)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
+    }
+
+    private void initializeSaveButton() {
+
+        saveGoodsReceiptButton.setOnClickListener(v -> {
+
+            Wiki wiki = new Wiki();
+            wiki.setTitle(clientTextView.getText().toString() + " " + docDateTextView.getText().toString());
+            StringBuilder sb = new StringBuilder();
+
+//            for (String s : items) {
+//                sb.append(s + " ");
+//            }
+            wiki.setContent("asd");
+            wiki.setSlug(clientTextView.getText().toString() + " "+docDateTextView.getText().toString());
+            sampleService.createPage(ApiKeys.API_KEY, ApiKeys.PROJECT_I2, wiki)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(
+                            m -> {
+                                saveGoodsReceiptButton.setEnabled(false);
+                                Objects.requireNonNull(getActivity()).recreate();
+                            },
+                            error -> {
+                                MessageBox.show(getContext(), error.getMessage());
+                            },
+                            () ->  MessageBox.show(getContext(), "Saved in database")
+                    );
+        });
+    }
+
+    private void initializeAddButton() {
+        addItemButton.setOnClickListener(v -> {
+            scannerView = new ZXingScannerView(getActivity());
+            getActivity().setContentView(scannerView);
+            scannerView.setResultHandler(result -> {
+                MessageBox.show(getContext(), result.getText());
+                addToList(result.getText());
+                scannerView.stopCamera();
+                //todo generuje błędy
+                if(view.getParent()!=null)
+                    ((ViewGroup)view.getParent()).removeView(view); // <- fix
+                getActivity().setContentView(view);
+            });
+            scannerView.startCamera();
+        });
     }
 }
