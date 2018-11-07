@@ -24,7 +24,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class GoodsReceipt extends Fragment implements RetroFitService {
+public class GoodsReceipt extends Fragment {
 
     @BindView(R.id.list) ListView listView;
 
@@ -37,21 +37,9 @@ public class GoodsReceipt extends Fragment implements RetroFitService {
         View view = inflater.inflate(R.layout.goods_receipt_n, container, false);
         ButterKnife.bind(this, view);
         result = new ArrayList<>();
-        initializeRetrofit();
 
         return view;
     }
-
-    @Override
-    public void initializeRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.12:8080/api/pos/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        goodsReceiptNService = retrofit.create(GoodsReceiptNService.class);
-    }
-
 
 //    private void getData() {
 //        goodsReceiptNService.getPositions()

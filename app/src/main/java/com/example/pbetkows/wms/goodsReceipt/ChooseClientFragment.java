@@ -24,6 +24,7 @@ import com.example.pbetkows.wms.utils.Navigator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,7 +36,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 
-public class ChooseClientFragment extends Fragment implements RetroFitService {
+public class ChooseClientFragment extends Fragment {
 
     @BindView(R.id.client_list_goodsReceipt) ListView listView;
     @BindView(R.id.chooseClient) SearchView chooseClient;
@@ -55,23 +56,11 @@ public class ChooseClientFragment extends Fragment implements RetroFitService {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.chose_client_fragment_goods_receipt, container, false);
         ButterKnife.bind(this, view);
-
+        sampleService = RetroFitService.initializeSampleService();
         initializeListeners();
-        initializeRetrofit();
         getClients();
 
         return view;
-    }
-
-    @Override
-    public void initializeRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://gitlab.com/api/v4/projects/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
-        sampleService = retrofit.create(SampleService.class);
     }
 
     @SuppressLint("CheckResult")
@@ -90,7 +79,7 @@ public class ChooseClientFragment extends Fragment implements RetroFitService {
                         error -> MessageBox.show(getContext(), error.getMessage()),
                         () -> {
                             Collections.sort(supplierList);
-                            adapter = new ArrayAdapter(getContext(),
+                            adapter = new ArrayAdapter(Objects.requireNonNull(getContext()),
                                     android.R.layout.simple_list_item_1, supplierList);
                             listView.setAdapter(adapter);
                         },

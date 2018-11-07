@@ -32,7 +32,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class GoodsReceiptLogFragment extends Fragment implements RetroFitService {
+public class GoodsReceiptLogFragment extends Fragment {
 
     View view;
 
@@ -49,7 +49,7 @@ public class GoodsReceiptLogFragment extends Fragment implements RetroFitService
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.goods_receipt_log, container, false);
-        initializeRetrofit();
+        sampleService = RetroFitService.initializeSampleService();
         ButterKnife.bind(this, view);
         getData();
         searchEditText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -70,15 +70,7 @@ public class GoodsReceiptLogFragment extends Fragment implements RetroFitService
     }
 
 
-    @Override
-    public void initializeRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://gitlab.com/api/v4/projects/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-        sampleService = retrofit.create(SampleService.class);
-    }
+
 
     @SuppressLint("CheckResult")
     private void getData() {

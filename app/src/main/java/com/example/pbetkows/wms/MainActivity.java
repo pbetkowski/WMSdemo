@@ -47,22 +47,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Navigator.navigate(getSupportFragmentManager(), new MainMenuFragment());
 
-//        if (count == 0) {
-//            super.onBackPressed();
-//            Log.d("TAG", "onBackPressed: 2");
-//        } else {
-//            getSupportFragmentManager().popBackStack();
-//            Log.d("TAG", "onBackPressed: 3");
-//        }
     }
 
-    @Override
-    public void recreate() {
-        super.recreate();
-        MessageBox.show(getApplicationContext(), "Recreate");
-        setContentView(R.layout.main_menu_fragment);
-       // Navigator.navigate(getSupportFragmentManager(), new MainMenuFragment());
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

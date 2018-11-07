@@ -14,12 +14,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.pbetkows.wms.MainMenuFragment;
 import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.apiKeys.ApiKeys;
 import com.example.pbetkows.wms.model.Wiki;
 import com.example.pbetkows.wms.services.RetroFitService;
 import com.example.pbetkows.wms.services.SampleService;
 import com.example.pbetkows.wms.utils.MessageBox;
+import com.example.pbetkows.wms.utils.Navigator;
 import com.example.pbetkows.wms.utils.StaticGenerators;
 
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
-public class AddItemsToListFragment extends Fragment implements RetroFitService {
+public class AddItemsToListFragment extends Fragment {
 
     View view;
 
@@ -45,6 +47,7 @@ public class AddItemsToListFragment extends Fragment implements RetroFitService 
     @BindView(R.id.itemList) ListView itemList;
     @BindView(R.id.addItemToGoodsReceipt) FloatingActionButton addItemButton;
     @BindView(R.id.saveGoodsReceipt) FloatingActionButton saveGoodsReceiptButton;
+
 
     private ZXingScannerView scannerView;
     private SampleService sampleService;
@@ -56,13 +59,12 @@ public class AddItemsToListFragment extends Fragment implements RetroFitService 
         view = inflater.inflate(R.layout.add_items_good_receipt_fragment, container, false);
 
         ButterKnife.bind(this, view);
+        sampleService = RetroFitService.initializeSampleService();
         assert getArguments() != null;
         clientTextView.setText(getArguments().getString("key"));
         docDateTextView.setText(StaticGenerators.getCurrentDate());
-        initializeRetrofit();
         initializeAddButton();
         initializeSaveButton();
-
 
         return view;
     }
@@ -74,22 +76,12 @@ public class AddItemsToListFragment extends Fragment implements RetroFitService 
     }
 
 
-    @Override
-    public void initializeRetrofit() {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://gitlab.com/api/v4/projects/")
-                .addConverterFactory(JacksonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build();
-
-        sampleService = retrofit.create(SampleService.class);
-    }
 
     private void initializeSaveButton() {
 
         saveGoodsReceiptButton.setOnClickListener(v -> {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
 
             builder.setPositiveButton("Save", (dialog, id) -> {
                 Wiki wiki = new Wiki();
@@ -100,29 +92,33 @@ public class AddItemsToListFragment extends Fragment implements RetroFitService 
 //                sb.append(s + " ");
 //            }
                 wiki.setContent("asd");
-                wiki.setSlug(clientTextView.getText().toString() + " "+docDateTextView.getText().toString());
+                wiki.setSlug(clientTextView.getText().toString() + " " + docDateTextView.getText().toString());
                 sampleService.createPage(ApiKeys.API_KEY, ApiKeys.PROJECT_I2, wiki)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribe(
                                 m -> {
                                     saveGoodsReceiptButton.setEnabled(false);
-                                    Objects.requireNonNull(getActivity()).recreate();
+
                                 },
                                 error -> {
                                     MessageBox.show(getContext(), error.getMessage());
                                 },
-                                () ->  MessageBox.show(getContext(), "Saved in database")
+                                () -> {
+                                    MessageBox.show(getContext(), "Saved in database");
+                                    getActivity().setContentView(R.layout.activity_main);
+                                    Navigator.navigate(getFragmentManager(), new MainMenuFragment());
+                                }
                         );
             });
             builder.setNegativeButton("Cancel", (dialog, id) -> {
                 MessageBox.show(getContext(), "Transaction cancelled");
             });
             builder.setTitle("Confirm transaction ?");
+            builder.setIcon(R.drawable.ic_save_black_24dp);
 
             AlertDialog dialog = builder.create();
             dialog.show();
-
 
 
         });
@@ -131,14 +127,14 @@ public class AddItemsToListFragment extends Fragment implements RetroFitService 
     private void initializeAddButton() {
         addItemButton.setOnClickListener(v -> {
             scannerView = new ZXingScannerView(getActivity());
-            getActivity().setContentView(scannerView);
+            Objects.requireNonNull(getActivity()).setContentView(scannerView);
             scannerView.setResultHandler(result -> {
                 MessageBox.show(getContext(), result.getText());
                 addToList(result.getText());
                 scannerView.stopCamera();
                 //todo generuje błędy
-                if(view.getParent()!=null)
-                    ((ViewGroup)view.getParent()).removeView(view); // <- fix
+                if (view.getParent() != null)
+                    ((ViewGroup) view.getParent()).removeView(view); // <- fix
                 getActivity().setContentView(view);
             });
             scannerView.startCamera();
