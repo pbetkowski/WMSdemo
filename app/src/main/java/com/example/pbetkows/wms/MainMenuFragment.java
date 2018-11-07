@@ -5,18 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.pbetkows.wms.goodsReceipt.AddItemsToListFragment;
 import com.example.pbetkows.wms.goodsReceipt.GoodsReceiptMainMenu;
-import com.example.pbetkows.wms.tests.SampleList;
+import com.example.pbetkows.wms.utils.Alerts;
 import com.example.pbetkows.wms.utils.DataWedgeFragment;
 import com.example.pbetkows.wms.utils.MessageBox;
 import com.example.pbetkows.wms.utils.Navigator;
@@ -57,13 +53,16 @@ public class MainMenuFragment extends Fragment {
 
         listView.setOnItemClickListener((parent, view1, position, id) -> {
             switch (items[position]) {
-                case ("Goods Receipt"):  Navigator.navigate(getFragmentManager() ,new GoodsReceiptMainMenu());
+                case ("Goods Receipt"):
+                    Navigator.navigate(getFragmentManager() ,new GoodsReceiptMainMenu());
                 break;
 
-                case ("Stock Transfer"): MessageBox.show(getContext(), "Not implemented yet");
+                case ("Stock Transfer"):
+                    Alerts.createAlert(getActivity());
                 break;
 
-                case ("Data Wedge"): Navigator.navigate(getFragmentManager() ,new DataWedgeFragment());
+                case ("Data Wedge"):
+                    Navigator.navigate(getFragmentManager() ,new DataWedgeFragment());
                 break;
             }
         });

@@ -60,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
     public void recreate() {
         super.recreate();
         MessageBox.show(getApplicationContext(), "Recreate");
-        setContentView(R.layout.activity_main);
-        Navigator.navigate(getSupportFragmentManager(), new MainMenuFragment());
+        setContentView(R.layout.main_menu_fragment);
+       // Navigator.navigate(getSupportFragmentManager(), new MainMenuFragment());
     }
 
     @Override

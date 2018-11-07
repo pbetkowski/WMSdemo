@@ -66,9 +66,6 @@ public class GoodsReceiptLogFragment extends Fragment implements RetroFitService
         });
 
 
-
-
-
         return view;
     }
 

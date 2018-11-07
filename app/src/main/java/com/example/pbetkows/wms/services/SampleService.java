@@ -14,9 +14,6 @@ import retrofit2.http.Path;
 
 public interface SampleService  {
 
-
-
-
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"

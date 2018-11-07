@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,28 +89,42 @@ public class AddItemsToListFragment extends Fragment implements RetroFitService 
 
         saveGoodsReceiptButton.setOnClickListener(v -> {
 
-            Wiki wiki = new Wiki();
-            wiki.setTitle(clientTextView.getText().toString() + " " + docDateTextView.getText().toString());
-            StringBuilder sb = new StringBuilder();
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+            builder.setPositiveButton("Save", (dialog, id) -> {
+                Wiki wiki = new Wiki();
+                wiki.setTitle(clientTextView.getText().toString() + " " + docDateTextView.getText().toString());
+                StringBuilder sb = new StringBuilder();
 
 //            for (String s : items) {
 //                sb.append(s + " ");
 //            }
-            wiki.setContent("asd");
-            wiki.setSlug(clientTextView.getText().toString() + " "+docDateTextView.getText().toString());
-            sampleService.createPage(ApiKeys.API_KEY, ApiKeys.PROJECT_I2, wiki)
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeOn(Schedulers.io())
-                    .subscribe(
-                            m -> {
-                                saveGoodsReceiptButton.setEnabled(false);
-                                Objects.requireNonNull(getActivity()).recreate();
-                            },
-                            error -> {
-                                MessageBox.show(getContext(), error.getMessage());
-                            },
-                            () ->  MessageBox.show(getContext(), "Saved in database")
-                    );
+                wiki.setContent("asd");
+                wiki.setSlug(clientTextView.getText().toString() + " "+docDateTextView.getText().toString());
+                sampleService.createPage(ApiKeys.API_KEY, ApiKeys.PROJECT_I2, wiki)
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeOn(Schedulers.io())
+                        .subscribe(
+                                m -> {
+                                    saveGoodsReceiptButton.setEnabled(false);
+                                    Objects.requireNonNull(getActivity()).recreate();
+                                },
+                                error -> {
+                                    MessageBox.show(getContext(), error.getMessage());
+                                },
+                                () ->  MessageBox.show(getContext(), "Saved in database")
+                        );
+            });
+            builder.setNegativeButton("Cancel", (dialog, id) -> {
+                MessageBox.show(getContext(), "Transaction cancelled");
+            });
+            builder.setTitle("Confirm transaction ?");
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+
+
         });
     }
 
