@@ -19,8 +19,7 @@ import butterknife.ButterKnife;
 
 public class LoginFragment extends Fragment {
 
-    @BindView(R.id.loginButton)
-    Button loginButton;
+    @BindView(R.id.loginButton) Button loginButton;
 
 
     @Nullable
@@ -32,21 +31,11 @@ public class LoginFragment extends Fragment {
 
         ButterKnife.bind(this, view);
 
-
         loginButton.setOnClickListener(v -> {
-            navigate();
+            Navigator.navigate(getFragmentManager(), new MainMenuFragment());
         });
-
-
 
         return view;
     }
 
-    private void navigate() {
-        getFragmentManager().beginTransaction()
-                .replace(R.id.container, new MainMenuFragment())
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
-    }
 }

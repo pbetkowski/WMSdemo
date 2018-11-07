@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.pbetkows.wms.utils.MessageBox;
+import com.example.pbetkows.wms.utils.Navigator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,17 +18,13 @@ public class MainActivity extends AppCompatActivity {
     //private ViewPager viewPager;
     public static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, new LoginFragment())
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
+        Navigator.navigate(getSupportFragmentManager(), new LoginFragment());
 
 
         ActivityCompat.requestPermissions(MainActivity.this,
@@ -48,12 +45,7 @@ public class MainActivity extends AppCompatActivity {
         int count = getSupportFragmentManager().getBackStackEntryCount();
 
         setContentView(R.layout.activity_main);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, new MainMenuFragment())
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
+        Navigator.navigate(getSupportFragmentManager(), new MainMenuFragment());
 
 //        if (count == 0) {
 //            super.onBackPressed();
@@ -69,12 +61,7 @@ public class MainActivity extends AppCompatActivity {
         super.recreate();
         MessageBox.show(getApplicationContext(), "Recreate");
         setContentView(R.layout.activity_main);
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, new MainMenuFragment())
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
+        Navigator.navigate(getSupportFragmentManager(), new MainMenuFragment());
     }
 
     @Override

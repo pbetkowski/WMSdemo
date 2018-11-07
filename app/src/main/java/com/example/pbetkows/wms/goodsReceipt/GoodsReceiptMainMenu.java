@@ -17,6 +17,7 @@ import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.tests.SampleList;
 import com.example.pbetkows.wms.utils.DataWedgeFragment;
 import com.example.pbetkows.wms.utils.MessageBox;
+import com.example.pbetkows.wms.utils.Navigator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,34 +41,21 @@ public class GoodsReceiptMainMenu extends Fragment {
 
         View view = inflater.inflate(R.layout.goods_receipt_menu, container, false);
         ButterKnife.bind(this, view);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, items);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_list_item_1, items);
         goodsReceiptMenu.setAdapter(adapter);
 
         goodsReceiptMenu.setOnItemClickListener((parent, view1, position, id) -> {
             switch (items[position]) {
                 case ("New Goods Receipt"):
-                    navigate(new ChooseClientFragment())
-                    ;break;
+                    Navigator.navigate(getFragmentManager(), new ChooseClientFragment());
+                    break;
                 case ("Goods Receipt Log"):
-                    navigate(new GoodsReceiptLogFragment());
+                    Navigator.navigate(getFragmentManager(), new GoodsReceiptLogFragment());
                     break;
             }
         });
 
 
-
-        //createButton.setOnClickListener(v -> navigate(new ChooseClientFragment()));
-
-
         return view;
-    }
-
-    private void navigate(Fragment fragment) {
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
     }
 }

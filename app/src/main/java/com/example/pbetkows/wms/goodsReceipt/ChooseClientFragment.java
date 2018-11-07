@@ -19,6 +19,7 @@ import com.example.pbetkows.wms.model.Wiki;
 import com.example.pbetkows.wms.services.RetroFitService;
 import com.example.pbetkows.wms.services.SampleService;
 import com.example.pbetkows.wms.utils.MessageBox;
+import com.example.pbetkows.wms.utils.Navigator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +43,7 @@ public class ChooseClientFragment extends Fragment implements RetroFitService {
 
     private List<String> supplierList;
     private SampleService sampleService;
-    private AddItemsToListFragment chooseClientFragment = new AddItemsToListFragment();
+    private AddItemsToListFragment addItemsToListFragment = new AddItemsToListFragment();
 
     private Bundle args = new Bundle();
     private ArrayAdapter adapter;
@@ -97,16 +98,6 @@ public class ChooseClientFragment extends Fragment implements RetroFitService {
                 );
     }
 
-    private void navigate(Fragment fragment) {
-        if (getFragmentManager() != null) {
-            getFragmentManager()
-                    .beginTransaction()
-                    .replace(R.id.container, fragment)
-                    .addToBackStack(null)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .commit();
-        }
-    }
 
     private void initializeListeners() {
         chooseClient.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -124,8 +115,8 @@ public class ChooseClientFragment extends Fragment implements RetroFitService {
 
         listView.setOnItemClickListener((a, b, c, d) -> {
             args.putString("key", listView.getAdapter().getItem(c).toString());
-            chooseClientFragment.setArguments(args);
-            navigate(chooseClientFragment);
+            addItemsToListFragment.setArguments(args);
+            Navigator.navigate(getFragmentManager(), addItemsToListFragment);
         });
     }
 }

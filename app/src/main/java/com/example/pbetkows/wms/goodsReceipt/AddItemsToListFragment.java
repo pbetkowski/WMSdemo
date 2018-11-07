@@ -84,17 +84,6 @@ public class AddItemsToListFragment extends Fragment implements RetroFitService 
         sampleService = retrofit.create(SampleService.class);
     }
 
-    private void navigate(Fragment fragment) {
-
-        assert getFragmentManager() != null;
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
-    }
-
     private void initializeSaveButton() {
 
         saveGoodsReceiptButton.setOnClickListener(v -> {

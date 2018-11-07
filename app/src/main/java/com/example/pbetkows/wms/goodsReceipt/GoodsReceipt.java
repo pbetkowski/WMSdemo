@@ -50,7 +50,6 @@ public class GoodsReceipt extends Fragment implements RetroFitService {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
         goodsReceiptNService = retrofit.create(GoodsReceiptNService.class);
-        Log.d("TAG", "TEST");
     }
 
 

@@ -19,6 +19,7 @@ import com.example.pbetkows.wms.goodsReceipt.GoodsReceiptMainMenu;
 import com.example.pbetkows.wms.tests.SampleList;
 import com.example.pbetkows.wms.utils.DataWedgeFragment;
 import com.example.pbetkows.wms.utils.MessageBox;
+import com.example.pbetkows.wms.utils.Navigator;
 
 import java.util.Objects;
 
@@ -32,6 +33,7 @@ public class MainMenuFragment extends Fragment {
 
     private String [] items = new String[] {"Goods Receipt", "Stock Transfer", "Data Wedge"};
 
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,16 +43,6 @@ public class MainMenuFragment extends Fragment {
         setListView();
 
         return view;
-    }
-
-    private void navigate(Fragment fragment) {
-        assert getFragmentManager() != null;
-        getFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack(null)
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit();
     }
 
     @Override
@@ -65,9 +57,14 @@ public class MainMenuFragment extends Fragment {
 
         listView.setOnItemClickListener((parent, view1, position, id) -> {
             switch (items[position]) {
-                case ("Goods Receipt"): navigate(new GoodsReceiptMainMenu());break;
-                case ("Stock Transfer"): navigate(new SampleList());break;
-                case ("Data Wedge"): navigate(new DataWedgeFragment());break;
+                case ("Goods Receipt"):  Navigator.navigate(getFragmentManager() ,new GoodsReceiptMainMenu());
+                break;
+
+                case ("Stock Transfer"): MessageBox.show(getContext(), "Not implemented yet");
+                break;
+
+                case ("Data Wedge"): Navigator.navigate(getFragmentManager() ,new DataWedgeFragment());
+                break;
             }
         });
     }
