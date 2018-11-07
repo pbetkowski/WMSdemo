@@ -1,3 +1,24 @@
 <resources>
+    <string name="custom_config">Custom config</string>
+    <string name="choose_supplier_goods_receipt">Choose supplier</string>
+    <string name="document_number_goods_receipt">Document Number</string>
+    <string name="goods_receipt_date">Date</string>
+    <string name="goods_receipt_header">Goods Receipt</string>
+    <string name="goods_receipt_log">Goods Receipt History</string>
+    <string name="exit">Exit</string>
+    <string name="login">Login</string>
     <string name="app_name">WMS</string>
+    <string name="settings">Settings</string>
+    <string name="select_printer">Select printer</string>
+
+    <string-array name="main_menu_items">
+        <item>Goods Receipt</item>
+        <item>Stock Transfer</item>
+        <item>Data Wedge</item>
+    </string-array>
+
+    <string-array name="goods_receipt_items">
+        <item>Create Goods Receipt</item>
+        <item>Created Documents</item>
+    </string-array>
 </resources>

@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/clientTextView"
         android:layout_marginBottom="10dp"
-        android:text="Choose supplier"
+        android:text="@string/choose_supplier_goods_receipt"
         android:gravity="center"
         android:textColor="#86AD33"
         android:textSize="13dp"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:id="@+id/documentNuberTextView"
-            android:text="Document Number"
+            android:text="@string/document_number_goods_receipt"
             android:gravity="left"
             android:paddingLeft="50dp"
             android:textColor="#86AD33"
@@ -44,7 +44,7 @@
             android:id="@+id/docDateTextView"
             android:paddingEnd="60dp"
             android:layout_marginBottom="10dp"
-            android:text="Date"
+            android:text="@string/goods_receipt_date"
             android:gravity="end"
             android:textColor="#86AD33"
             android:textSize="13dp"
@@ -83,7 +83,8 @@
            app:backgroundTint="#4c4c4c"
            android:clickable="true"
            android:src="@drawable/ic_add_circle_black_24dp"
-           app:elevation="4dp" />
+           app:elevation="4dp"
+           android:focusable="true" />
 
        <android.support.design.widget.FloatingActionButton
            android:id="@+id/saveGoodsReceipt"
@@ -93,7 +94,8 @@
            app:backgroundTint="#4c4c4c"
            android:clickable="true"
            android:src="@drawable/ic_save_black_24dp"
-           app:elevation="4dp" />
+           app:elevation="4dp"
+           android:focusable="true" />
    </FrameLayout>
 
 

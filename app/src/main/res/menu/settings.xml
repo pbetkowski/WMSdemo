@@ -8,16 +8,16 @@
 
         <menu>
             <item
-                android:title="Custom config"
+                android:title="@string/custom_config"
                 android:id="@+id/item1">
             </item>
             <item
-                android:title="Settings"
+                android:title="@string/settings"
                 android:id="@+id/item2">
             </item>
 
             <item
-                android:title="Select printer"
+                android:title="@string/select_printer"
                 android:id="@+id/item3">
             </item>
         </menu>

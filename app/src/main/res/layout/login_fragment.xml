@@ -16,7 +16,7 @@
         android:id = "@+id/editText"
         android:gravity="center"
         android:layout_below="@+id/fooFragment"
-        android:hint = "User"
+        android:hint = "@string/login"
         android:focusable = "true"
         android:layout_marginTop = "46dp"
         android:layout_alignParentLeft = "true"
@@ -44,7 +44,7 @@
         <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="login"
+        android:text="@string/login"
         android:id="@+id/loginButton"
         android:layout_alignParentBottom="true"
         />
@@ -52,7 +52,7 @@
         <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Exit"
+        android:text="@string/exit"
         android:id="@+id/exitButton"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"

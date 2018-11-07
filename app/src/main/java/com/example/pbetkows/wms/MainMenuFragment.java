@@ -27,7 +27,7 @@ public class MainMenuFragment extends Fragment {
 
     @BindView(R.id.main_menu_list) ListView listView;
 
-    private String [] items = new String[] {"Goods Receipt", "Stock Transfer", "Data Wedge"};
+    //private String [] items = new String[] {"Goods Receipt", "Stock Transfer", "Data Wedge"};
 
 
     @Nullable
@@ -48,20 +48,20 @@ public class MainMenuFragment extends Fragment {
 
     private void setListView() {
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_list_item_1, items);
-        listView.setAdapter(adapter);
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_list_item_1, items);
+//        listView.setAdapter(adapter);
 
         listView.setOnItemClickListener((parent, view1, position, id) -> {
-            switch (items[position]) {
-                case ("Goods Receipt"):
+            switch (position) {
+                case (0):
                     Navigator.navigate(getFragmentManager() ,new GoodsReceiptMainMenu());
                 break;
 
-                case ("Stock Transfer"):
+                case (1):
                     Alerts.createAlert(getActivity());
                 break;
 
-                case ("Data Wedge"):
+                case (2):
                     Navigator.navigate(getFragmentManager() ,new DataWedgeFragment());
                 break;
             }

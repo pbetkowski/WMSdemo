@@ -26,7 +26,6 @@ public class GoodsReceiptMainMenu extends Fragment {
     @BindView(R.id.goodsReceiptMenu) ListView goodsReceiptMenu;
 
     private List<String> list = new ArrayList<>();
-    private String [] items = new String[] {"New Goods Receipt", "Goods Receipt Log"};
 
     @Nullable
     @Override
@@ -34,15 +33,13 @@ public class GoodsReceiptMainMenu extends Fragment {
 
         View view = inflater.inflate(R.layout.goods_receipt_menu, container, false);
         ButterKnife.bind(this, view);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_list_item_1, items);
-        goodsReceiptMenu.setAdapter(adapter);
 
         goodsReceiptMenu.setOnItemClickListener((parent, view1, position, id) -> {
-            switch (items[position]) {
-                case ("New Goods Receipt"):
+            switch (position) {
+                case (0):
                     Navigator.navigate(getFragmentManager(), new ChooseClientFragment());
                     break;
-                case ("Goods Receipt Log"):
+                case (1):
                     Navigator.navigate(getFragmentManager(), new GoodsReceiptLogFragment());
                     break;
             }
