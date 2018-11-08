@@ -20,6 +20,7 @@ import com.example.pbetkows.wms.apiKeys.ApiKeys;
 import com.example.pbetkows.wms.model.Wiki;
 import com.example.pbetkows.wms.services.RetroFitService;
 import com.example.pbetkows.wms.services.SampleService;
+import com.example.pbetkows.wms.utils.Alerts;
 import com.example.pbetkows.wms.utils.MessageBox;
 import com.example.pbetkows.wms.utils.Navigator;
 import com.example.pbetkows.wms.utils.StaticGenerators;
@@ -81,9 +82,8 @@ public class AddItemsToListFragment extends Fragment {
 
         saveGoodsReceiptButton.setOnClickListener(v -> {
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(Objects.requireNonNull(getActivity()));
+            Alerts.createAlert(getActivity(), () -> {
 
-            builder.setPositiveButton("Save", (dialog, id) -> {
                 Wiki wiki = new Wiki();
                 wiki.setTitle(clientTextView.getText().toString() + " " + docDateTextView.getText().toString());
                 StringBuilder sb = new StringBuilder();
@@ -111,17 +111,7 @@ public class AddItemsToListFragment extends Fragment {
                                 }
                         );
             });
-            builder.setNegativeButton("Cancel", (dialog, id) -> {
-                MessageBox.show(getContext(), "Transaction cancelled");
             });
-            builder.setTitle("Confirm transaction ?");
-            builder.setIcon(R.drawable.ic_save_black_24dp);
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
-
-
-        });
     }
 
     private void initializeAddButton() {

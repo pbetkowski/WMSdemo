@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.pbetkows.wms.goodsReceipt.GoodsReceiptMainMenu;
 import com.example.pbetkows.wms.utils.Alerts;
@@ -58,7 +59,9 @@ public class MainMenuFragment extends Fragment {
                 break;
 
                 case (1):
-                    Alerts.createAlert(getActivity());
+                    Alerts.createAlert(getActivity(), () -> {
+                        MessageBox.show(getContext(), "Bla");
+                    });
                 break;
 
                 case (2):
