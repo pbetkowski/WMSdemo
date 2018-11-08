@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,12 +43,18 @@ public class AddItemsToListFragment extends Fragment {
 
     View view;
 
-    @BindView(R.id.clientTextView) TextView clientTextView;
-    @BindView(R.id.documentNuberTextView) TextView documentNumberTextView;
-    @BindView(R.id.docDateTextView) TextView docDateTextView;
-    @BindView(R.id.itemList) ListView itemList;
-    @BindView(R.id.addItemToGoodsReceipt) FloatingActionButton addItemButton;
-    @BindView(R.id.saveGoodsReceipt) FloatingActionButton saveGoodsReceiptButton;
+    @BindView(R.id.clientTextView)
+    TextView clientTextView;
+    @BindView(R.id.documentNuberTextView)
+    TextView documentNumberTextView;
+    @BindView(R.id.docDateTextView)
+    TextView docDateTextView;
+    @BindView(R.id.itemList)
+    ListView itemList;
+    @BindView(R.id.addItemToGoodsReceipt)
+    FloatingActionButton addItemButton;
+    @BindView(R.id.saveGoodsReceipt)
+    FloatingActionButton saveGoodsReceiptButton;
 
 
     private ZXingScannerView scannerView;
@@ -77,7 +84,6 @@ public class AddItemsToListFragment extends Fragment {
     }
 
 
-
     private void initializeSaveButton() {
 
         saveGoodsReceiptButton.setOnClickListener(v -> {
@@ -97,21 +103,19 @@ public class AddItemsToListFragment extends Fragment {
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeOn(Schedulers.io())
                         .subscribe(
-                                m -> {
-                                    saveGoodsReceiptButton.setEnabled(false);
-
-                                },
+                                m -> Log.d("tag", "initializeSaveButton: "),
                                 error -> {
-                                    MessageBox.show(getContext(), error.getMessage());
+                                    Alerts.errorAlert(getActivity(), error.getMessage());
                                 },
-                                () -> {
-                                    MessageBox.show(getContext(), "Saved in database");
-                                    getActivity().setContentView(R.layout.activity_main);
+                                () -> MessageBox.show(getContext(), "Saved in database"),
+                                n -> {
+                                    Objects.requireNonNull(getActivity()).setContentView(R.layout.activity_main);
                                     Navigator.navigate(getFragmentManager(), new MainMenuFragment());
                                 }
+
                         );
             });
-            });
+        });
     }
 
     private void initializeAddButton() {

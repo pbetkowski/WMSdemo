@@ -59,9 +59,7 @@ public class MainMenuFragment extends Fragment {
                 break;
 
                 case (1):
-                    Alerts.createAlert(getActivity(), () -> {
-                        MessageBox.show(getContext(), "Bla");
-                    });
+                     Alerts.errorAlert(getActivity(), "Critical error");
                 break;
 
                 case (2):

@@ -21,4 +21,8 @@
         <item>Create Goods Receipt</item>
         <item>Created Documents</item>
     </string-array>
+
+    <string-array name="izolator">
+        <item>Izolator</item>
+    </string-array>
 </resources>
