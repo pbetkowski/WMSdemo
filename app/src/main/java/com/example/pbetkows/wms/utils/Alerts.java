@@ -3,6 +3,7 @@ package com.example.pbetkows.wms.utils;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 
 import com.example.pbetkows.wms.R;
 
@@ -21,11 +22,8 @@ public class Alerts {
         });
         builder.setTitle("Confirm transaction ?");
         builder.setIcon(R.drawable.ic_save_black_24dp);
-        builder.setMultiChoiceItems(R.array.izolator,null,  new DialogInterface.OnMultiChoiceClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+        builder.setMultiChoiceItems(R.array.izolator,null, (dialog, which, isChecked) -> {
 
-            }
         });
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -40,6 +38,7 @@ public class Alerts {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
 }
 
 

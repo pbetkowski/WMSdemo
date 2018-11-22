@@ -1,18 +1,16 @@
-package com.example.pbetkows.wms.goodsReceipt;
+package com.example.pbetkows.wms.companies.electropoli.goodsReceipt;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.example.pbetkows.wms.R;
-import com.example.pbetkows.wms.services.GoodsReceiptNService;
-import com.example.pbetkows.wms.services.RetroFitService;
+import com.example.pbetkows.wms.companies.test.service.GoodsReceiptNService;
 
 
 import java.util.ArrayList;
@@ -20,9 +18,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class GoodsReceipt extends Fragment {
 

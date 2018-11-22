@@ -8,17 +8,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.pbetkows.wms.goodsReceipt.GoodsReceiptMainMenu;
-import com.example.pbetkows.wms.utils.Alerts;
+import com.example.pbetkows.wms.companies.electropoli.goodsReceipt.GoodsReceiptMainMenu;
 import com.example.pbetkows.wms.utils.DataWedgeFragment;
-import com.example.pbetkows.wms.utils.MessageBox;
 import com.example.pbetkows.wms.utils.Navigator;
-
-import java.util.Objects;
+import com.example.pbetkows.wms.utils.TestFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,7 +54,7 @@ public class MainMenuFragment extends Fragment {
                 break;
 
                 case (1):
-                     Alerts.errorAlert(getActivity(), "Critical error");
+                     Navigator.navigate(getFragmentManager(), new TestFragment());
                 break;
 
                 case (2):

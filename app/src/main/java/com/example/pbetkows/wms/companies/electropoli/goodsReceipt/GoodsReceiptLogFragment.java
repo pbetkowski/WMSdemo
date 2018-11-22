@@ -1,4 +1,4 @@
-package com.example.pbetkows.wms.goodsReceipt;
+package com.example.pbetkows.wms.companies.electropoli.goodsReceipt;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -14,9 +14,9 @@ import android.widget.SearchView;
 
 import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.apiKeys.ApiKeys;
-import com.example.pbetkows.wms.model.Wiki;
+import com.example.pbetkows.wms.companies.test.model.Wiki;
 import com.example.pbetkows.wms.services.RetroFitService;
-import com.example.pbetkows.wms.services.SampleService;
+import com.example.pbetkows.wms.companies.test.service.SampleService;
 import com.example.pbetkows.wms.utils.MessageBox;
 
 import java.util.ArrayList;
@@ -28,9 +28,6 @@ import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class GoodsReceiptLogFragment extends Fragment {
 

@@ -1,12 +1,10 @@
-package com.example.pbetkows.wms.goodsReceipt;
+package com.example.pbetkows.wms.companies.electropoli.goodsReceipt;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +16,9 @@ import android.widget.TextView;
 import com.example.pbetkows.wms.MainMenuFragment;
 import com.example.pbetkows.wms.R;
 import com.example.pbetkows.wms.apiKeys.ApiKeys;
-import com.example.pbetkows.wms.model.Wiki;
+import com.example.pbetkows.wms.companies.test.model.Wiki;
 import com.example.pbetkows.wms.services.RetroFitService;
-import com.example.pbetkows.wms.services.SampleService;
+import com.example.pbetkows.wms.companies.test.service.SampleService;
 import com.example.pbetkows.wms.utils.Alerts;
 import com.example.pbetkows.wms.utils.MessageBox;
 import com.example.pbetkows.wms.utils.Navigator;
@@ -35,9 +33,6 @@ import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class AddItemsToListFragment extends Fragment {
 

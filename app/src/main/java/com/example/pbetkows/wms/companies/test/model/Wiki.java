@@ -1,4 +1,4 @@
-package com.example.pbetkows.wms.model;
+package com.example.pbetkows.wms.companies.test.model;
 
 public class Wiki {
 

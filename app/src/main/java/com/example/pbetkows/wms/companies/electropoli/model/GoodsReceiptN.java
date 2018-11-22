@@ -1,4 +1,4 @@
-package com.example.pbetkows.wms.model;
+package com.example.pbetkows.wms.companies.electropoli.model;
 
 public class GoodsReceiptN {
 

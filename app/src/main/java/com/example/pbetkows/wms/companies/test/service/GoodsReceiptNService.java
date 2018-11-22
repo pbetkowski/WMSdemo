@@ -1,6 +1,6 @@
-package com.example.pbetkows.wms.services;
+package com.example.pbetkows.wms.companies.test.service;
 
-import com.example.pbetkows.wms.model.GoodsReceiptN;
+import com.example.pbetkows.wms.companies.electropoli.model.GoodsReceiptN;
 
 import java.util.List;
 
